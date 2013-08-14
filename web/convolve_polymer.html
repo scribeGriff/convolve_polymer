@@ -5,33 +5,56 @@
     <meta charset="utf-8">
     <title>Building Convo.lv with Polymer</title>
     <link rel="stylesheet" href="convolve_polymer.css">
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [["$","$"],["\\(","\\)"]]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full">
+  </script>
   </head>
   <body>
+    <script>
+    //  Use a closure to hide the local variables from the
+    //  global namespace
+    (function () {
+      var QUEUE = MathJax.Hub.queue;  // shorthand for the queue
+      var math = null;                // the element jax for the math output.
+      //  Get the element jax when MathJax has produced it.
+      QUEUE.Push(function () {
+        math = MathJax.Hub.getAllJax("MathOutput")[0];
+      });
+      //  The onchange event handler that typesets the
+      //  math entered by the user
+      //
+      window.UpdateMath = function (TeX) {
+        QUEUE.Push(["Text",math,"\\displaystyle{"+TeX+"}"]);
+      }
+    })();
+  </script>
     <h1>Building Convo.lv with Polymer</h1>
 
     <p>$$f(x) = 2 + 5x^{-1} - 3x^{-2} + 7x^{-3}$$</p>
+    <div>
+        You typed ${}$
+    </div>
 
-    <!-- the empty {{}} means bind to the currently bound object itself -->
     <template id="tmpl" bind>
-      <p>And the answer is: {{}}</p>
+      <div>
+        Type something: <input id="MathInput" type="text" value="{{message}}">
+      </div>
+      <div id="MathOutput">
+        You typed ${}$
+      </div>
     </template>
 
     <script type="application/dart" src="convolve_polymer.dart"></script>
     <script src="packages/polymer/boot.js"></script>
+    <script src="packages/browser/interop.js"></script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        TeX: { equationNumbers: { autoNumber: "all" } }
-      });
-    </script>
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [['$','$'], ['\\(','\\)']],
-          processEscapes: true
-        }
-      });
-    </script>
-    <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  </body>
+
+</body>
 </html>
