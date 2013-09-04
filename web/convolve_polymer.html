@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <title>Building Convo.lv with Polymer</title>
     <link rel="stylesheet" href="convolve_polymer.css">
+    <script src="packages/polymer/boot.js"></script>
+    <script src="packages/browser/interop.js"></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         tex2jax: {
@@ -14,7 +16,7 @@
     </script>
     <script type="text/javascript"
       src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full">
-  </script>
+    </script>
   </head>
   <body>
     <script>
@@ -38,23 +40,19 @@
     <h1>Building Convo.lv with Polymer</h1>
 
     <p>$$f(x) = 2 + 5x^{-1} - 3x^{-2} + 7x^{-3}$$</p>
-    <div>
-        You typed ${}$
-    </div>
+    <div id="equation"></div>
 
-    <template id="tmpl" bind>
-      <div>
-        Type something: <input id="MathInput" type="text" value="{{message}}">
-      </div>
-      <div id="MathOutput">
-        You typed ${}$
-      </div>
-    </template>
-
-    <script type="application/dart" src="convolve_polymer.dart"></script>
-    <script src="packages/polymer/boot.js"></script>
-    <script src="packages/browser/interop.js"></script>
-
-
-</body>
+    <polymer-element name="equation-element">
+      <template>
+        <div class="border well">
+          <p>Enter a Latex Equation:</p>
+          <input type="text" value="{{math.expression}}">
+          <button on-click="render" class="btn btn-primary">Render</button>
+        </div>
+      </template>
+      <script type="application/dart" src="convolve_polymer.dart"></script>
+    </polymer>
+    <equation-element></equation-element>
+    <script type="application/dart" void main() {}></script>
+  </body>
 </html>

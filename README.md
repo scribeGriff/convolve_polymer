@@ -1,6 +1,23 @@
-## Inital Experiments with Polymer ##
+## Building Convolve with Dart and Polymer ##
 
-Experiment 1: Get MathJax rendering to work.   
+#### Getting MathJax rendering to work   
 
-- MathJax rendering seems to have a problem with the template tag.  Trying a similar experiment with AngularDart to see if I can get any further.
-- Observation: Both polymer and angular seem to exhibit an odd UX behavior when moving the cursor back to correct a bound input.  After each keystroke, the cursor jumps to the end of the already entered text regardless of whether the user is finished correcting the earlier text, which is extremely undesirable. 
+- MathJax doesn't render inside a polymer-element tag.  But writing to an element in the dom (ie, outside the shadow dom) should work fine for convolve.  Everything else will use polymer.
+- JS-interop works great typesetting specific dom elements with dynamic content.  
+
+So updating a div whose id is stored in the variable `eqndiv` in JavaScript:
+
+````javascript
+MathJax.Hub.Queue(["Typeset", MathJax.Hub, eqndiv]));
+````
+
+Translates to the following using js-interop:
+
+````dart
+var context = js.context;
+js.scoped(() {
+  new js.Proxy(context.MathJax.Hub.Queue(js.array(["Typeset",
+                                                    context.MathJax.Hub,
+                                                    eqndiv])));
+});
+````
