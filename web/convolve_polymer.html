@@ -4,7 +4,8 @@
   <head>
     <meta charset="utf-8">
     <title>Building Convo.lv with Polymer</title>
-    <link rel="stylesheet" href="convolve_polymer.css">
+    <link rel="stylesheet" href="css/convolve_polymer.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="packages/polymer/boot.js"></script>
     <script src="packages/browser/interop.js"></script>
     <script type="text/x-mathjax-config">
@@ -37,7 +38,7 @@
       }
     })();
   </script>
-    <h1>Building Convo.lv with Polymer</h1>
+    <h2>Building Convo.lv with Polymer</h2>
 
     <p>$$f(x) = 2 + 5x^{-1} - 3x^{-2} + 7x^{-3}$$</p>
     <div id="equation"></div>
@@ -45,7 +46,7 @@
     <polymer-element name="equation-element">
       <template>
         <div class="border well">
-          <p>Enter a Latex Equation:</p>
+          <p>Enter your coefficients separated by commas:</p>
           <input type="text" value="{{math.expression}}">
           <button on-click="render" class="btn btn-primary">Render</button>
         </div>
@@ -53,6 +54,5 @@
       <script type="application/dart" src="convolve_polymer.dart"></script>
     </polymer>
     <equation-element></equation-element>
-    <script type="application/dart" void main() {}></script>
   </body>
 </html>
