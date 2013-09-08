@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Convo.lv with Polymer</title>
+    <link rel="stylesheet" href="css/convolve_polymer.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/demo.css">
+    <link rel="stylesheet" href="css/component.css">
+    <link rel="import" href="convolve_polymer.html">
+    <script src="packages/polymer/boot.js"></script>
+    <script src="packages/browser/interop.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [["$","$"],["\\(","\\)"]]
+        }
+      });
+    </script>
+    <script type="text/javascript"
+      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full">
+    </script>
+  </head>
+  <body>
+    <script>
+    //  Use a closure to hide the local variables from the
+    //  global namespace
+    (function () {
+      var QUEUE = MathJax.Hub.queue;  // shorthand for the queue
+      var math = null;                // the element jax for the math output.
+      //  Get the element jax when MathJax has produced it.
+      QUEUE.Push(function () {
+        math = MathJax.Hub.getAllJax("MathOutput")[0];
+      });
+      //  The onchange event handler that typesets the
+      //  math entered by the user
+      //
+      window.UpdateMath = function (TeX) {
+        QUEUE.Push(["Text",math,"\\displaystyle{"+TeX+"}"]);
+      }
+    })();
+    </script>
+    <!-- <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+          </form>
+        </div>
+      </div>
+    </div> -->
+    <div>
+    <section class="color-1">
+        <nav class="cl-effect-1">
+          <a href="#">Convolution</a>
+          <a href="#">Deconvolution</a>
+          <a href="#">Sequences</a>
+          <a href="#">Filters</a>
+          <a href="#">Fourier</a>
+        </nav>
+      </section>
+    </div>
+    <div class="jumbotron">
+      <div class="container">
+        <h2>Building Convo.lv with Polymer</h2>
+        <p>$$f(x) = 2 + 5x^{-1} - 3x^{-2} + 7x^{-3}$$</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+         <equation-element></equation-element>
+       </div>
+        <div id="results" class="col-lg-4">
+          <div id="numerator"></div>
+          <div id="denominator"></div>
+          <div id="solution"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

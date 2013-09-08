@@ -1,66 +1,16 @@
-<!DOCTYPE html>
-
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Building Convo.lv with Polymer</title>
-    <link rel="stylesheet" href="css/convolve_polymer.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="packages/polymer/boot.js"></script>
-    <script src="packages/browser/interop.js"></script>
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [["$","$"],["\\(","\\)"]]
-        }
-      });
-    </script>
-    <script type="text/javascript"
-      src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML-full">
-    </script>
-  </head>
-  <body>
-    <script>
-    //  Use a closure to hide the local variables from the
-    //  global namespace
-    (function () {
-      var QUEUE = MathJax.Hub.queue;  // shorthand for the queue
-      var math = null;                // the element jax for the math output.
-      //  Get the element jax when MathJax has produced it.
-      QUEUE.Push(function () {
-        math = MathJax.Hub.getAllJax("MathOutput")[0];
-      });
-      //  The onchange event handler that typesets the
-      //  math entered by the user
-      //
-      window.UpdateMath = function (TeX) {
-        QUEUE.Push(["Text",math,"\\displaystyle{"+TeX+"}"]);
-      }
-    })();
-  </script>
-    <h2>Building Convo.lv with Polymer</h2>
-
-    <p>$$f(x) = 2 + 5x^{-1} - 3x^{-2} + 7x^{-3}$$</p>
-    <div id="results">
-      <div id="numerator"></div>
-      <div id="denominator"></div>
-      <div id="solution"></div>
+<polymer-element name="equation-element">
+  <template>
+    <div class="border well">
+      <p>Enter the numerator coefficients separated by commas:</p>
+      <input type="text" placeholder="1, 2, 0, 3" value="{{math.numerator}}">
     </div>
-
-    <polymer-element name="equation-element">
-      <template>
-        <div class="border well">
-          <p>Enter the numerator coefficients separated by commas:</p>
-          <input type="text" value="{{math.numerator}}">
-        </div>
-        <div class="border well">
-          <p>Enter the denominator coefficients separated by commas:</p>
-          <input type="text" value="{{math.denominator}}">
-          <button on-click="render" class="btn btn-primary">Compute Convolution</button>
-        </div>
-      </template>
-      <script type="application/dart" src="convolve_polymer.dart"></script>
-    </polymer>
-    <equation-element></equation-element>
-  </body>
-</html>
+    <div class="border well">
+      <p>Enter the denominator coefficients separated by commas:</p>
+      <input type="text" placeholder="4, 0, 6"value="{{math.denominator}}">
+    </div>
+    <div class="border well">
+      <button on-click="render" class="btn btn-primary">Compute</button>
+    </div>
+  </template>
+  <script type="application/dart" src="convolve_polymer.dart"></script>
+</polymer-element>
