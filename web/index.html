@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Building Convo.lv with Polymer</title>
-    <link rel="stylesheet" href="css/component.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/convolve_polymer.css">
-    <link rel="import" href="convolve_polymer.html">
+    <link rel="import" href="elements/equation_element.html">
+    <link rel="import" href="elements/navbar_element.html">
     <script src="packages/polymer/boot.js"></script>
     <script src="packages/browser/interop.js"></script>
     <script type="text/x-mathjax-config">
@@ -41,19 +41,7 @@
       }
     })();
     </script>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-    <section class="color-1">
-        <nav class="cl-effect-1">
-          <a href="#">Convolution</a>
-          <a href="#">Deconvolution</a>
-          <a href="#">Sequences</a>
-          <a href="#">Filters</a>
-          <a href="#">Fourier</a>
-        </nav>
-      </section>
-    </div>
-    </div>
+    <navbar-element></navbar-element>
     <div class="jumbotron">
       <div class="container">
         <h2>Building Convo.lv with Polymer</h2>
