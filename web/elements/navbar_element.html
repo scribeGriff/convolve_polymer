@@ -76,11 +76,9 @@
       <div class="container">
         <section class="color-1">
           <nav class="cl-effect-1">
-            <a href="#" on-click="doConvolution">Convolution</a>
-            <a href="#" on-click="doDeconvolution">Deconvolution</a>
-            <a href="#" on-click="doSequences">Sequences</a>
-            <a href="#" on-click="doFilters">Filters</a>
-            <a href="#" on-click="doFourier">Fourier</a>
+            <template repeat="{{item in menu}}" >
+              <a id={{item.id}} href="#" on-click="menuHandler">{{item.text}}</a>
+            </template>
           </nav>
         </section>
       </div>
