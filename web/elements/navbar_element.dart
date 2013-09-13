@@ -1,5 +1,6 @@
 import 'dart:html';
 import 'package:polymer/polymer.dart';
+import 'package:animation/animation.dart';
 
 /// The Item class represents an item in the navigation bar.
 class Item extends Object with ObservableMixin {
@@ -26,5 +27,13 @@ class NavbarElement extends PolymerElement with ObservableMixin {
   void menuHandler(Event e, var detail, Element target) {
     e.preventDefault();
     print(target.attributes["id"]);
+    var el = query('#box');
+
+    var properties = {
+                      'left': 1000,
+                      'top': 350
+    };
+
+    animate(el, properties: properties, duration: 5000);
   }
 }
