@@ -6,8 +6,18 @@ import 'package:animation/animation.dart';
 class Item extends Object with ObservableMixin {
   @observable String text;
   @observable String id;
+  @observable bool selected;
 
-  Item([this.text = '', this.id = '']);
+  Item(this.text, this.id, this.selected) {
+    bindProperty(this, const Symbol('selected'),
+        () => notifyProperty(this, const Symbol('arrowClass')));
+  }
+
+// Apply a done class for completed items.
+  String get arrowClass {
+    if (selected) return 'arrow_box';
+    else return '';
+  }
 }
 
 /// The navigation bar.
@@ -15,11 +25,11 @@ class Item extends Object with ObservableMixin {
 class NavbarElement extends PolymerElement with ObservableMixin {
   final ObservableList<Item> menu =
       toObservable([
-                    new Item('Convolution', 'convolution'),
-                    new Item('Deconvolution', 'deconvolution'),
-                    new Item('Sequences', 'sequence'),
-                    new Item('Filters', 'filter'),
-                    new Item('Fourier', 'fourier')
+                    new Item('Fourier', 'fourier', false),
+                    new Item('Sequences', 'sequence', false),
+                    new Item('Convolution', 'convolution', false),
+                    new Item('Deconvolution', 'deconvolution', false),
+                    new Item('Filters', 'filter', false)
                     ]);
 
   bool get applyAuthorStyles => true;
