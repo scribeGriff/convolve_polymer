@@ -8,22 +8,26 @@
         -moz-box-sizing: border-box;
         box-sizing: border-box;
       }
-      .navbar-inverse {
+      /* from css-responsive codrops article*/
+      .st-container {
+        position: absolute;
+        width: 100%;
+        height: 56px;
+        top: 0;
+        left: 0;
         background-color: #435a6b;
       }
-      .container > section {
-        margin: 0 auto;
-        padding: 1em 3em;
-        text-align: center;
-      }
-      .color-1 {
-        background: #435a6b;
-      }
       nav a {
+        position: fixed;
+        top: 0px;
+        width: 20%;
+        height: 34px;
+        line-height: 34px;
+        background: #435a6b;
+        color: #fff;
+        text-align: center;
         font-family: 'Raleway', sans-serif;
-        position: relative;
-        display: inline-block;
-        margin: 15px 25px;
+        margin: 10px 0;
         outline: none;
         color: #fff;
         text-decoration: none;
@@ -31,53 +35,89 @@
         letter-spacing: 1px;
         font-weight: 400;
         text-shadow: 0 0 1px rgba(255,255,255,0.3);
-        font-size: 1.35em;
+        font-size: 1.2em;
+      }
+      /* don't want to do it this way but nothing else is working yet -
+         using child selector places them in the wrong order??? why is that? */
+      nav a#fourier {
+        left: 0
+      }
+      nav a#sequence {
+        left: 20%;
+      }
+      nav a#convolution {
+        left: 40%;
+      }
+      nav a#deconvolution {
+        left: 60%;
+      }
+      nav a#filter {
+        left: 80%;
       }
       nav a:hover,
       nav a:focus {
         outline: none;
         color: #fff;
         text-decoration: none;
+      }
+      .cl-effect:hover,
+      .cl-effect:focus {
         cursor: pointer;
       }
-      .cl-effect-1 a::before,
-      .cl-effect-1 a::after {
+      .cl-effect::before,
+      .cl-effect::after {
         display: inline-block;
         opacity: 0;
         -webkit-transition: -webkit-transform 0.3s, opacity 0.2s;
         -moz-transition: -moz-transform 0.3s, opacity 0.2s;
         transition: transform 0.3s, opacity 0.2s;
       }
-      .cl-effect-1 a::before {
+      .cl-effect::before {
         margin-right: 10px;
         content: '[';
         -webkit-transform: translateX(20px);
         -moz-transform: translateX(20px);
         transform: translateX(20px);
       }
-      .cl-effect-1 a::after {
+      .cl-effect::after {
         margin-left: 10px;
         content: ']';
         -webkit-transform: translateX(-20px);
         -moz-transform: translateX(-20px);
         transform: translateX(-20px);
       }
-      .cl-effect-1 a:hover::before,
-      .cl-effect-1 a:hover::after,
-      .cl-effect-1 a:focus::before,
-      .cl-effect-1 a:focus::after {
+      .cl-effect:hover::before,
+      .cl-effect:hover::after,
+      .cl-effect:focus::before,
+      .cl-effect:focus::after {
         opacity: 1;
         -webkit-transform: translateX(0px);
         -moz-transform: translateX(0px);
         transform: translateX(0px);
       }
+      @media screen and (max-width: 1250px) {
+        nav a {
+          font-size: 1.0em;
+        }
+      }
+      @media screen and (max-width: 900px) {
+        nav a {
+          font-size: 0.8em;
+        }
+      @media screen and (max-width: 700px) {
+        nav a {
+          font-size: 0.6em;
+          text-transform: none;
+          letter-spacing: normal;
+        }
+      }
     </style>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <section class="color-1">
-          <nav class="cl-effect-1">
+    <!-- <div class="navbar navbar-inverse navbar-fixed-top"> -->
+    <div>
+      <div class="st-container">
+            <nav>
             <template repeat="{{item in menu}}" >
-              <a id={{item.id}} href="#" on-click="menuHandler">{{item.text}}</a>
+              <a id={{item.id}} href="#" class={{item.arrowClass}} on-click="menuHandler">{{item.text}}</a>
             </template>
           </nav>
         </section>

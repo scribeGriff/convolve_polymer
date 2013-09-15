@@ -1,6 +1,6 @@
 import 'dart:html';
 import 'package:polymer/polymer.dart';
-import 'package:animation/animation.dart';
+//import 'package:animation/animation.dart';
 
 /// The Item class represents an item in the navigation bar.
 class Item extends Object with ObservableMixin {
@@ -13,10 +13,10 @@ class Item extends Object with ObservableMixin {
         () => notifyProperty(this, const Symbol('arrowClass')));
   }
 
-// Apply a done class for completed items.
+// Apply a selected class for completed items.
   String get arrowClass {
     if (selected) return 'arrow_box';
-    else return '';
+    else return 'cl-effect';
   }
 }
 
@@ -27,7 +27,7 @@ class NavbarElement extends PolymerElement with ObservableMixin {
       toObservable([
                     new Item('Fourier', 'fourier', false),
                     new Item('Sequences', 'sequence', false),
-                    new Item('Convolution', 'convolution', false),
+                    new Item('Convolution', 'convolution', true),
                     new Item('Deconvolution', 'deconvolution', false),
                     new Item('Filters', 'filter', false)
                     ]);
@@ -37,13 +37,21 @@ class NavbarElement extends PolymerElement with ObservableMixin {
   void menuHandler(Event e, var detail, Element target) {
     e.preventDefault();
     print(target.attributes["id"]);
-    var el = query('#box');
+    menu.forEach((element) {
+      if (element.id == target.attributes["id"]) {
+        element.selected = true;
+      } else {
+        element.selected = false;
+      }
+    });
+
+    /*var el = query('#box');
 
     var properties = {
                       'left': 1000,
                       'top': 350
     };
 
-    animate(el, properties: properties, duration: 5000);
+    animate(el, properties: properties, duration: 5000);*/
   }
 }

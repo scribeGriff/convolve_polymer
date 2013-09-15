@@ -4,7 +4,7 @@ body {
   font-size: 14px;
   font-weight: normal;
   line-height: 1.2em;
-  padding-top: 50px;
+  padding-top:50px;
   padding-bottom: 20px;
 }
 h1, p {
@@ -50,8 +50,10 @@ html[xmlns] .clearfix { display:block; }
 
 /* cssarrow please */
 .arrow_box {
+  margin: 0 10px;
   position: relative;
   background: #435a6b;
+  cursor: default;
 }
 .arrow_box:after {
   top: 100%;
@@ -64,7 +66,7 @@ html[xmlns] .clearfix { display:block; }
 }
 .arrow_box:after {
   border-color: rgba(67, 90, 107, 0);
-  border-top-color: #435;
+  border-top-color: #435a6b;
   border-width: 30px;
   left: 50%;
   margin-left: -30px;
