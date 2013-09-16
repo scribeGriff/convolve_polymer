@@ -15,7 +15,7 @@ class Item extends Object with ObservableMixin {
 
 // Apply a selected class for completed items.
   String get arrowClass {
-    if (selected) return 'arrow_box';
+    if (selected) return 'active';
     else return 'cl-effect';
   }
 }

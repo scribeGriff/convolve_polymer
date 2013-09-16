@@ -47,27 +47,3 @@ html[xmlns] .clearfix { display:block; }
 #content .next,#content .previous { top:0; background-color: #eaeaea; cursor:pointer; }
 #content .next { left:95%; }
 #content .previous { right:95%; }
-
-/* cssarrow please */
-.arrow_box {
-  margin: 0 10px;
-  position: relative;
-  background: #435a6b;
-  cursor: default;
-}
-.arrow_box:after {
-  top: 100%;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-}
-.arrow_box:after {
-  border-color: rgba(67, 90, 107, 0);
-  border-top-color: #435a6b;
-  border-width: 30px;
-  left: 50%;
-  margin-left: -30px;
-}

@@ -40,7 +40,7 @@
       /* don't want to do it this way but nothing else is working yet -
          using child selector places them in the wrong order??? why is that? */
       nav a#fourier {
-        left: 0
+        left: 0;
       }
       nav a#sequence {
         left: 20%;
@@ -52,6 +52,22 @@
         left: 60%;
       }
       nav a#filter {
+        left: 80%;
+      }
+      /* to animate the arrow, let's try this */
+      nav a#fourier.active ~ .arrow_box {
+        left: 0;
+      }
+      nav a#sequence.active ~ .arrow_box {
+        left: 20%;
+      }
+      nav a#convolution.active ~ .arrow_box {
+        left: 40%;
+      }
+      nav a#deconvolution.active ~ .arrow_box {
+        left: 60%;
+      }
+      nav a#filter.active ~ .arrow_box {
         left: 80%;
       }
       nav a:hover,
@@ -95,6 +111,37 @@
         -moz-transform: translateX(0px);
         transform: translateX(0px);
       }
+      .active {
+        cursor: default;
+      }
+      /* cssarrow please */
+      .arrow_box {
+        position: absolute;
+        width: 20%;
+        left: 0;
+        transition: 0.4s ease-in-out;
+      }
+      .st-nav .arrow_box {
+        margin-top: 45px;
+        position: relative;
+        background: #435a6b;
+      }
+      .st-nav .arrow_box:after {
+        top: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      .st-nav .arrow_box:after {
+        border-color: rgba(67, 90, 107, 0);
+        border-top-color: #435a6b;
+        border-width: 30px;
+        left: 50%;
+        margin-left: -30px;
+      }
       @media screen and (max-width: 1250px) {
         nav a {
           font-size: 1.0em;
@@ -115,10 +162,11 @@
     <!-- <div class="navbar navbar-inverse navbar-fixed-top"> -->
     <div>
       <div class="st-container">
-            <nav>
+            <nav class="st-nav">
             <template repeat="{{item in menu}}" >
               <a id={{item.id}} href="#" class={{item.arrowClass}} on-click="menuHandler">{{item.text}}</a>
             </template>
+            <div class="arrow_box"></div>
           </nav>
         </section>
       </div>
