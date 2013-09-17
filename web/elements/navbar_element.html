@@ -37,36 +37,23 @@
         text-shadow: 0 0 1px rgba(255,255,255,0.3);
         font-size: 1.2em;
       }
-      /* don't want to do it this way but nothing else is working yet -
-         using child selector places them in the wrong order??? why is that? */
-      nav a#fourier {
-        left: 0;
-      }
-      nav a#sequence {
-        left: 20%;
-      }
-      nav a#convolution {
-        left: 40%;
-      }
-      nav a#deconvolution {
-        left: 60%;
-      }
-      nav a#filter {
-        left: 80%;
-      }
-      /* to animate the arrow, let's try this */
+      nav a#fourier,
       nav a#fourier.active ~ .arrow_box {
         left: 0;
       }
+      nav a#sequence,
       nav a#sequence.active ~ .arrow_box {
         left: 20%;
       }
+      nav a#convolution,
       nav a#convolution.active ~ .arrow_box {
         left: 40%;
       }
+      nav a#deconvolution,
       nav a#deconvolution.active ~ .arrow_box {
         left: 60%;
       }
+      nav a#filter,
       nav a#filter.active ~ .arrow_box {
         left: 80%;
       }
@@ -114,7 +101,6 @@
       .active {
         cursor: default;
       }
-      /* cssarrow please */
       .arrow_box {
         position: absolute;
         width: 20%;

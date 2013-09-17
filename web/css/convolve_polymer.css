@@ -47,3 +47,5 @@ html[xmlns] .clearfix { display:block; }
 #content .next,#content .previous { top:0; background-color: #eaeaea; cursor:pointer; }
 #content .next { left:95%; }
 #content .previous { right:95%; }
+#content .next2 { left: 120%; }
+#content .previous2 { right: 120%; }

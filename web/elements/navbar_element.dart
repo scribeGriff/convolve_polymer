@@ -36,12 +36,17 @@ class NavbarElement extends PolymerElement with ObservableMixin {
 
   void menuHandler(Event e, var detail, Element target) {
     e.preventDefault();
-    print(target.attributes["id"]);
+    String selected = target.attributes["id"];
+    //print(target.attributes["id"]);
     menu.forEach((element) {
-      if (element.id == target.attributes["id"]) {
+      if (element.id == selected) {
         element.selected = true;
+        query("#$selected").classes.removeAll(["previous", "next"]);
+        query("#$selected").classes.add("active");
       } else {
         element.selected = false;
+        query("#convolution").classes.remove("active");
+        query("#convolution").classes.add("previous");
       }
     });
 
