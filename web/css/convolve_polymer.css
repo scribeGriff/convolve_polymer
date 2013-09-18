@@ -42,10 +42,33 @@ html[xmlns] .clearfix { display:block; }
 
 #content {  min-height:100%; overflow:hidden; display:block; position:relative; }
 
-#content .page { width:78%; min-height: 100%; padding-top:30px; position:absolute; }
-#content .active { position:relative; margin:0 6%; left:5%; right:5%; }
-#content .next,#content .previous { top:0; background-color: #eaeaea; cursor:pointer; }
-#content .next { left:95%; }
-#content .previous { right:95%; }
-#content .next2 { left: 120%; }
-#content .previous2 { right: 120%; }
+#content .page {
+  width:78%;
+  min-height: 100%;
+  padding-top:30px;
+  position:absolute;
+}
+#content .active {
+  position:relative;
+  margin:0 6%;
+  left:5%;
+  right:5%;
+}
+#content .next,
+#content .previous {
+  top:0;
+  background-color: #eaeaea;
+  cursor:pointer;
+}
+#content .next {
+  left:95%;
+}
+#content .previous {
+  right:95%;
+}
+#content .next-next {
+  left: 120%;
+}
+#content .previous-previous {
+  right: 120%;
+}
