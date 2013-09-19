@@ -1,5 +1,4 @@
 import 'dart:html';
-import 'dart:collection';
 import 'package:polymer/polymer.dart';
 //import 'package:animation/animation.dart';
 
@@ -37,41 +36,44 @@ class NavbarElement extends PolymerElement with ObservableMixin {
   int currentSelection = 2;
   int newSelection;
   int offsetClass;
-  ListQueue classList = new ListQueue();
-
-  void NavbarElement() {
-  classList.addAll([
+  List classList = [
                     "previous-previous",
                     "previous",
                     "active",
                     "next",
                     "next-next"
-                    ]);
-  }
+                    ];
 
   bool get applyAuthorStyles => true;
 
   void menuHandler(Event e, var detail, Element target) {
     e.preventDefault();
-    String selected = target.attributes["id"];
-    //print(target.attributes["id"]);
-    // There's got to be an easier way to find selected id.
-    menu.forEach((element) {
-      if (element.id == selected) {
-        newSelection = menu.indexOf(element);
-        offsetClass = newSelection - currentSelection;
-        print(menu.indexOf(element));
-        element.selected = true;
-        currentSelection = newSelection;
+    // Check if this is not the current element.
+    if (target.attributes["id"] != menu[currentSelection].id) {
+      menu.forEach((element) {
+        if (element.id == target.attributes["id"]) {
+          if (menu.indexOf(element) == currentSelection) return;
+          newSelection = menu.indexOf(element);
+          offsetClass = newSelection - currentSelection;
+          element.selected = true;
+          currentSelection = newSelection;
+        } else {
+          element.selected = false;
+        }
+      });
+      // Now need to offset classList queue by the offsetClass amount.
+      // Do that here using pop/push where sign determines direction.
+      // Or just do this with a simple list and sublist??
+      // The following is still not working.
+      offsetClass = offsetClass > 0 ? offsetClass : offsetClass + menu.length;
+      classList.insert(0, classList.sublist(classList.length - offsetClass, classList.length).join(", "));
+      classList.removeRange(classList.length - offsetClass, classList.length);
+      // Once you have that, loop through menu item list and attach the correct class.
+      // Something like this?
+      for (var i = 0; i < menu.length; i++) {
+        query("#${menu[i].id}").classes.removeAll(classList);
+        query("#${menu[i].id}").classes.add(classList.elementAt(i));
       }
-    });
-    // Now need to offset classList queue by the offsetClass amount.
-    // Do that here using pop/push where sign determines direction.
-    // Once you have that, loop through menu item list and attach the correct class.
-    // Something like this?
-    for (var i = 0; i < menu.length; i++) {
-      query("#${menu[i].id}").classes.removeAll(classList);
-      query("#${menu[i].id}").classes.add(classList.elementAt(i));
     }
 //        query("#$selected").classes.removeAll(classList);
 //        query("#$selected").classes.add("active");
