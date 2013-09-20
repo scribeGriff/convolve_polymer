@@ -32,7 +32,6 @@ class NavbarElement extends PolymerElement with ObservableMixin {
                     new Item('Filters', 'filter', false)
                     ]);
 
-  // The default selection is convolution which is the 2nd entry in menu.
   int currentSelection = 2;
   int newSelection;
   int offsetClass;
@@ -45,6 +44,11 @@ class NavbarElement extends PolymerElement with ObservableMixin {
                     ];
 
   bool get applyAuthorStyles => true;
+// This doesn't work and not sure why.
+//  NavBarElement() {
+//    // The default selection is convolution which is the 2nd entry in menu.
+//    //currentSelection = menu.indexOf(menu.firstWhere((i) => i.selected == true));
+//  }
 
   void menuHandler(Event e, var detail, Element target) {
     e.preventDefault();
@@ -52,7 +56,6 @@ class NavbarElement extends PolymerElement with ObservableMixin {
     if (target.attributes["id"] != menu[currentSelection].id) {
       menu.forEach((element) {
         if (element.id == target.attributes["id"]) {
-          if (menu.indexOf(element) == currentSelection) return;
           newSelection = menu.indexOf(element);
           offsetClass = newSelection - currentSelection;
           element.selected = true;
@@ -61,28 +64,18 @@ class NavbarElement extends PolymerElement with ObservableMixin {
           element.selected = false;
         }
       });
-      // Now need to offset classList queue by the offsetClass amount.
-      // Do that here using pop/push where sign determines direction.
-      // Or just do this with a simple list and sublist??
-      // The following is still not working.
+      // Update the classList to the new selection.
       offsetClass = offsetClass > 0 ? offsetClass : offsetClass + menu.length;
-      classList.insert(0, classList.sublist(classList.length - offsetClass, classList.length).join(", "));
+      classList.insertAll(0, classList.sublist(classList.length - offsetClass,
+                                               classList.length));
       classList.removeRange(classList.length - offsetClass, classList.length);
-      // Once you have that, loop through menu item list and attach the correct class.
-      // Something like this?
+      // Once you have that, loop through the menu item list and
+      // attach the correct class.
       for (var i = 0; i < menu.length; i++) {
         query("#${menu[i].id}").classes.removeAll(classList);
         query("#${menu[i].id}").classes.add(classList.elementAt(i));
       }
     }
-//        query("#$selected").classes.removeAll(classList);
-//        query("#$selected").classes.add("active");
-//      } else {
-//        element.selected = false;
-//        query("#convolution").classes.remove("active");
-//        query("#convolution").classes.add("previous");
-//      }
-
 
     /*var el = query('#box');
 
