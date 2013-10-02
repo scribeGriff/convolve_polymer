@@ -8,9 +8,8 @@
         -moz-box-sizing: border-box;
         box-sizing: border-box;
       }
-      /* from css-responsive codrops article*/
       .st-container {
-        position: absolute;
+        position:fixed;
         width: 100%;
         height: 56px;
         top: 0;
@@ -108,8 +107,8 @@
         transition: 0.4s ease-in-out;
       }
       .st-nav .arrow_box {
-        margin-top: 45px;
-        position: relative;
+        position: fixed;
+        top:45px;
         background: #435a6b;
       }
       .st-nav .arrow_box:after {
@@ -145,16 +144,14 @@
         }
       }
     </style>
-    <!-- <div class="navbar navbar-inverse navbar-fixed-top"> -->
     <div>
       <div class="st-container">
-            <nav class="st-nav">
-            <template repeat="{{item in menu}}" >
-              <a id={{item.id}} href="#" class={{item.arrowClass}} on-click="menuHandler">{{item.text}}</a>
-            </template>
-            <div class="arrow_box"></div>
-          </nav>
-        </section>
+        <nav class="st-nav">
+          <template repeat="{{item in menu}}" >
+            <a id={{item.id}} href="#" class={{item.arrowClass}} on-click="menuHandler">{{item.text}}</a>
+          </template>
+          <div class="arrow_box"></div>
+        </nav>
       </div>
     </div>
   </template>

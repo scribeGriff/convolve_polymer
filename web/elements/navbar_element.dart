@@ -1,6 +1,5 @@
 import 'dart:html';
 import 'package:polymer/polymer.dart';
-//import 'package:animation/animation.dart';
 
 /// The Item class represents an item in the navigation bar.
 class Item extends Object with ObservableMixin {
@@ -32,16 +31,23 @@ class NavbarElement extends PolymerElement with ObservableMixin {
                     new Item('Filters', 'filter', false)
                     ]);
 
+  List classList = [
+                     "next-l",
+                     "next-next-l",
+                     "previous-previous",
+                     "previous",
+                     "active",
+                     "next",
+                     "next-next",
+                     "previous-previous-r",
+                     "previous-r"
+                     ];
+
   int currentSelection = 2;
+  int defaultSelection = 2;
   int newSelection;
   int offsetClass;
-  List classList = [
-                    "previous-previous",
-                    "previous",
-                    "active",
-                    "next",
-                    "next-next"
-                    ];
+  bool inProgress = false;
 
   bool get applyAuthorStyles => true;
 // This doesn't work and not sure why.
@@ -53,37 +59,32 @@ class NavbarElement extends PolymerElement with ObservableMixin {
   void menuHandler(Event e, var detail, Element target) {
     e.preventDefault();
     // Check if this is not the current element.
-    if (target.attributes["id"] != menu[currentSelection].id) {
+    if (target.attributes["id"] != menu[currentSelection].id && !inProgress) {
+      inProgress = true;
       menu.forEach((element) {
         if (element.id == target.attributes["id"]) {
           newSelection = menu.indexOf(element);
-          offsetClass = newSelection - currentSelection;
+          offsetClass = defaultSelection - newSelection;
           element.selected = true;
           currentSelection = newSelection;
         } else {
           element.selected = false;
         }
       });
-      // Update the classList to the new selection.
-      offsetClass = offsetClass > 0 ? offsetClass : offsetClass + menu.length;
-      classList.insertAll(0, classList.sublist(classList.length - offsetClass,
-                                               classList.length));
-      classList.removeRange(classList.length - offsetClass, classList.length);
-      // Once you have that, loop through the menu item list and
-      // attach the correct class.
+      // Now add the animation class to each element referenced in the menu.
       for (var i = 0; i < menu.length; i++) {
-        query("#${menu[i].id}").classes.removeAll(classList);
-        query("#${menu[i].id}").classes.add(classList.elementAt(i));
+        query("#${menu[i].id}").classes.add("to-${classList.elementAt(defaultSelection + i + offsetClass)}");
       }
+      // Wait for the animation to finish updating the current element, then
+      // remove the animation class and add the classes for the final position.
+      window.onAnimationEnd.first.then((_) {
+        for (var i = 0; i < menu.length; i++) {
+          query("#${menu[i].id}").classes.removeAll(classList);
+          query("#${menu[i].id}").classes.remove("to-${classList.elementAt(defaultSelection + i + offsetClass)}");
+          query("#${menu[i].id}").classes.add(classList.elementAt(defaultSelection + i + offsetClass));
+          inProgress = false;
+        }
+      });
     }
-
-    /*var el = query('#box');
-
-    var properties = {
-                      'left': 1000,
-                      'top': 350
-    };
-
-    animate(el, properties: properties, duration: 5000);*/
   }
 }

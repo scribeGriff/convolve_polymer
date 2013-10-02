@@ -2,7 +2,6 @@ name: convolve_polymer
 author: Richard Griffith
 description: Testing using Polymer with JS-interop, ConvoLab, simplot and animations.
 dependencies:
-  animation: any
   browser: any
   convolab:
     git: git://github.com/scribeGriff/ConvoLab.git
