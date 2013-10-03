@@ -31,25 +31,30 @@ class NavbarElement extends PolymerElement with ObservableMixin {
                     new Item('Filters', 'filter', false)
                     ]);
 
-  List classList = [
-                     "next-l",
-                     "next-next-l",
-                     "previous-previous",
-                     "previous",
-                     "active",
-                     "next",
-                     "next-next",
-                     "previous-previous-r",
-                     "previous-r"
-                     ];
+  final List classList = [
+                          "next-l",
+                          "next-next-l",
+                          "previous-previous",
+                          "previous",
+                          "active",
+                          "next",
+                          "next-next",
+                          "previous-previous-r",
+                          "previous-r"
+                          ];
 
-  int currentSelection = 2;
-  int defaultSelection = 2;
-  int newSelection;
-  int offsetClass;
+  // The left most class for the default state is previous-previous.
+  final int defaultSelection = 2;
+  int
+    currentSelection = 2,  // Initialized to menu[2] = convolution.
+    newSelection,
+    offsetClass;
+
+  // Monitor if animation is currently in progress.
   bool inProgress = false;
 
   bool get applyAuthorStyles => true;
+
 // This doesn't work and not sure why.
 //  NavBarElement() {
 //    // The default selection is convolution which is the 2nd entry in menu.
@@ -73,15 +78,17 @@ class NavbarElement extends PolymerElement with ObservableMixin {
       });
       // Now add the animation class to each element referenced in the menu.
       for (var i = 0; i < menu.length; i++) {
-        query("#${menu[i].id}").classes.add("to-${classList.elementAt(defaultSelection + i + offsetClass)}");
+        query("#${menu[i].id}").classes
+          .add("to-${classList.elementAt(defaultSelection + i + offsetClass)}");
       }
       // Wait for the animation to finish updating the current element, then
       // remove the animation class and add the classes for the final position.
       window.onAnimationEnd.first.then((_) {
         for (var i = 0; i < menu.length; i++) {
-          query("#${menu[i].id}").classes.removeAll(classList);
-          query("#${menu[i].id}").classes.remove("to-${classList.elementAt(defaultSelection + i + offsetClass)}");
-          query("#${menu[i].id}").classes.add(classList.elementAt(defaultSelection + i + offsetClass));
+          query("#${menu[i].id}")
+            ..classes.removeAll(classList)
+            ..classes.remove("to-${classList.elementAt(defaultSelection + i + offsetClass)}")
+            ..classes.add(classList.elementAt(defaultSelection + i + offsetClass));
           inProgress = false;
         }
       });

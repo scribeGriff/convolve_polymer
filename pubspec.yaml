@@ -1,6 +1,6 @@
 name: convolve_polymer
 author: Richard Griffith
-description: Testing using Polymer with JS-interop, ConvoLab, simplot and animations.
+description: Building the Convo.lv web app using Polymer with JS-interop, ConvoLab, simplot and CSS3 animations.
 dependencies:
   browser: any
   convolab:

@@ -35,7 +35,7 @@ class Equations extends PolymerElement with ObservableMixin {
     numeratordiv.innerHtml = pstring(numeqn);
     denominatordiv.innerHtml = pstring(deneqn);
     solutiondiv.innerHtml = convolution.format();
-    var context = js.context;
+    js.Proxy context = js.context;
     js.scoped(() {
       // This repesents the following:
       // MathJax.Hub.Queue(["Typeset", MathJax.Hub, numeratordiv]));

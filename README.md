@@ -14,7 +14,7 @@ MathJax.Hub.Queue(["Typeset", MathJax.Hub, eqndiv]));
 Translates to the following using js-interop:
 
 ````dart
-var context = js.context;
+js.Proxy context = js.context;
 js.scoped(() {
   new js.Proxy(context.MathJax.Hub.Queue(js.array(["Typeset",
                                                     context.MathJax.Hub,
