@@ -2,7 +2,7 @@
 
 #### Getting MathJax rendering to work   
 
-- MathJax doesn't render inside a polymer-element tag.  But writing to an element in the dom (ie, outside the shadow dom) should work fine for convolve.  Everything else will use polymer.
+- MathJax doesn't render inside a polymer-element tag (or possibly it is a problem using js-interop with Polymer.dart according to [this](http://stackoverflow.com/questions/19156471/using-google-maps-lib-with-polymer "using js-interop with polymer.dart")).  But writing to an element in the dom (ie, outside the shadow dom) should work fine for convolve.  Everything else will use polymer.
 - JS-interop works great typesetting specific dom elements with dynamic content.  
 
 So updating a div whose id is stored in the variable `eqndiv` in JavaScript:

@@ -1,11 +1,37 @@
+.clearfix:after {
+  content:".";
+  display:block;
+  clear:both;
+  visibility:hidden;
+  line-height:0;
+  height:0;
+}
+.clearfix {
+  display:inline-block;
+}
+html[xmlns] .clearfix {
+  display:block;
+}
+* html .clearfix {
+  height:1%;
+}
+html { 
+  width:100%; 
+  height:100%; 
+  position:relative; 
+}
 body {
-  background-color: white;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: normal;
   line-height: 1.2em;
-  padding-top:50px;
+  padding-top:70px;
   padding-bottom: 20px;
+}
+body { 
+  width:100%; 
+  height:100%; 
+  position:relative;
 }
 h1, p {
   color: #333;
@@ -35,23 +61,6 @@ input[type="text"] {
 }
 
 /* horizontal slider */
-.clearfix:after {
-  content:".";
-  display:block;
-  clear:both;
-  visibility:hidden;
-  line-height:0;
-  height:0;
-}
-.clearfix {
-  display:inline-block;
-}
-html[xmlns] .clearfix {
-  display:block;
-}
-* html .clearfix {
-  height:1%;
-}
 #content {
   min-height: 100%;
   overflow: hidden;
@@ -68,15 +77,16 @@ html[xmlns] .clearfix {
   position:absolute;
 }
 #content .active {
-  position:relative;
+  /*position:relative;*/
   margin:0 6%;
   left:5%;
 }
 #content .next,
 #content .previous {
   top:0;
-  background-color: #eaeaea;
+  background-color: #EFF0F1;
   cursor:pointer;
+  border-radius: 10px;
 }
 #content .next-next,
 #content .previous-previous,
@@ -85,7 +95,7 @@ html[xmlns] .clearfix {
 #content .previous-previous-r,
 #content .previous-r {
   top: 0;
-  background-color: #eaeaea;
+  background-color: #EFF0F1;
 }
 #content .next {
   left: 95%;
@@ -118,7 +128,7 @@ html[xmlns] .clearfix {
     left: 5%;
     margin-right: 6%;
     margin-left: 6%;
-    background-color: #fff;
+    background-color: #FFF;
   }
 }
 .to-active {
@@ -130,7 +140,8 @@ html[xmlns] .clearfix {
     left: 95%;
     margin-right: 0;
     margin-left: 0;
-    background-color: #eaeaea;
+    background-color: #EFF0F1;
+    border-radius: 10px;
   }
 }
 .to-next {
@@ -142,7 +153,8 @@ html[xmlns] .clearfix {
     left: -73%;
     margin-right: 0;
     margin-left: 0;
-    background-color: #eaeaea;
+    background-color: #EFF0F1;
+    border-radius: 10px;
   }
 }
 .to-previous {
@@ -154,7 +166,7 @@ html[xmlns] .clearfix {
     left: -173%;
     margin-right: 0;
     margin-left: 0;
-    background-color: #eaeaea;
+    background-color: #EFF0F1;
   }
 }
 .to-previous-previous {
@@ -166,7 +178,7 @@ html[xmlns] .clearfix {
     left: 200%;
     margin-right: 0;
     margin-left: 0;
-    background-color: #eaeaea;
+    background-color: #EFF0F1;
   }
 }
 .to-next-next {
@@ -178,7 +190,7 @@ html[xmlns] .clearfix {
     left: -373%;
     margin-right: 0;
     margin-left: 0;
-    background-color: #eaeaea;
+    background-color: #EFF0F1;
   }
 }
 .to-next-l {
@@ -190,7 +202,7 @@ html[xmlns] .clearfix {
     left: -273%;
     margin-right: 0;
     margin-left: 0;
-    background-color: #eaeaea;
+    background-color: #EFF0F1;
   }
 }
 .to-next-next-l {
@@ -202,7 +214,7 @@ html[xmlns] .clearfix {
     left: 300%;
     margin-right: 0;
     margin-left: 0;
-    background-color: #eaeaea;
+    background-color: #EFF0F1;
   }
 }
 .to-previous-previous-r {
@@ -214,7 +226,7 @@ html[xmlns] .clearfix {
     left: 400%;
     margin-right: 0;
     margin-left: 0;
-    background-color: #eaeaea;
+    background-color: #EFF0F1;
   }
 }
 .to-previous-r {
