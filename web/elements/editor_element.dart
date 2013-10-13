@@ -1,9 +1,11 @@
-library application;
-
+import 'package:polymer/polymer.dart';
 import 'dart:html';
 import 'package:ace/ace.dart' as ace;
 
-main() {
+// This will not work until js-interop works with polymer.
+
+@CustomTag('editor-element')
+class Editor extends PolymerElement {
   String test = """
   Sequence numeqn = sequence(ncoeff.split(",")
       .where((element) => element.trim().isNotEmpty)
@@ -16,11 +18,17 @@ main() {
   denominatordiv.innerHtml = pstring(deneqn);
   solutiondiv.innerHtml = convolution.format();
   """;
-  var editor = ace.edit(query('#editor'))
-      ..theme = new ace.Theme("ace/theme/clouds_midnight")
-      ..session.mode = new ace.Mode("ace/mode/dart");
 
-  editor.session.tabSize = 2;
-  editor.session.useSoftTabs = true;
-  editor.session.insert(editor.cursorPosition, "$test");
+  var editor;
+
+  created() {
+    super.created();
+    Element aceElement = $['editor'];
+    editor = ace.edit($['editor'])
+        ..theme = new ace.Theme("ace/theme/clouds_midnight")
+    ..session.mode = new ace.Mode("ace/mode/dart");
+    editor.session.tabSize = 2;
+    editor.session.useSoftTabs = true;
+    editor.session.insert(editor.cursorPosition, "$test");
+  }
 }

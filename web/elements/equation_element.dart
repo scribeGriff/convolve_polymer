@@ -12,9 +12,12 @@ class Math extends Object with ObservableMixin {
 class Equations extends PolymerElement with ObservableMixin {
   String ncoeff, dcoeff;
   @observable Math math = new Math();
+  @observable String id = '';
 
   // This is not in the shadow dom since MathJax
   // does not typset inside a polymer-element.
+  // This is likely due to js-interop not working
+  // with the shadow-dom yet.
   DivElement numeratordiv = query('#numerator');
   DivElement denominatordiv = query('#denominator');
   DivElement solutiondiv = query('#solution');

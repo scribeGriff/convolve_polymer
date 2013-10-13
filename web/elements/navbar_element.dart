@@ -8,11 +8,11 @@ class Item extends Object with ObservableMixin {
   @observable bool selected;
 
   Item(this.text, this.id, this.selected) {
-    bindProperty(this, const Symbol('selected'),
+    onPropertyChange(this, const Symbol('selected'),
         () => notifyProperty(this, const Symbol('arrowClass')));
   }
 
-// Apply a selected class for completed items.
+  // Apply a selected class for completed items.
   String get arrowClass {
     if (selected) return 'active';
     else return 'cl-effect';

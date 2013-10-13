@@ -11,8 +11,11 @@
     <link rel="stylesheet" href="css/convolve_polymer.css">
     <link rel="import" href="elements/equation_element.html">
     <link rel="import" href="elements/navbar_element.html">
-    <script src="packages/polymer/boot.js"></script>
-    <script src="packages/browser/interop.js"></script>
+    <script type="text/javascript" src="packages/polymer/boot.js"></script>
+    <script type="text/javascript" src="packages/browser/interop.js"></script>
+    <script type="text/javascript" src="packages/js/dart_interop.js"></script>
+    <script type="text/javascript" charset="utf-8" src="packages/ace/src/js/ace.js"></script>
+    <script type="application/dart" src="application/application.dart"></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         tex2jax: {
@@ -50,17 +53,22 @@
         <div id="convolution" class="active page clearfix">
         <div class="row">
           <div class="container">
-            <h2>Building Convo.lv with Polymer</h2>
+            <h2>Convolution of Two Sequences</h2>
             <p>$$f(x) = 2 + 5x^{-1} - 3x^{-2} + 7x^{-3}$$</p>
           </div>
           <div class="col-lg-4">
             <h3> Convolution </h3>
-            <equation-element></equation-element>
+            <equation-element id="equation-convolution"></equation-element>
+          </div> 
+          <div id="results-convolution" class="col-lg-4">
+            <div id="numerator-convolution"></div>
+            <div id="denominator-convolution"></div>
+            <div id="solution-convolution"></div>
           </div>
-          <div id="results" class="col-lg-4">
-            <div id="numerator"></div>
-            <div id="denominator"></div>
-            <div id="solution"></div>
+          </div>
+        <div class="row">
+          <div class="col-md-8 col-md-offset-1">
+            <div id="editor"></div>
           </div>
         </div>
       </div>

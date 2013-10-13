@@ -59,8 +59,12 @@ input[type="text"] {
   width: 192px;
   padding-left: 5px;
 }
-
-/* horizontal slider */
+/* Editor */
+#editor {
+  height: 525px;
+  padding: 10px;
+}
+/* Horizontal Slider */
 #content {
   min-height: 100%;
   overflow: hidden;
@@ -231,4 +235,9 @@ input[type="text"] {
 }
 .to-previous-r {
   -webkit-animation: toPrevR 1s ease-in-out;
+}
+
+#equation-convolution {
+  background-color: blue;
+}
 }

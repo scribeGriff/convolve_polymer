@@ -1,7 +1,9 @@
 name: convolve_polymer
+version: 0.0.1
 author: Richard Griffith
 description: Building the Convo.lv web app using Polymer with JS-interop, ConvoLab, simplot and CSS3 animations.
 dependencies:
+  ace: any
   browser: any
   convolab:
     git: git://github.com/scribeGriff/ConvoLab.git
