@@ -3,31 +3,89 @@ import 'package:polymer/polymer.dart';
 import 'package:convolab/convolab.dart';
 import 'package:js/js.dart' as js;
 
-class Math extends Object with ObservableMixin {
-  @observable String numerator, denominator;
-  Math([this.numerator = '', this.denominator]);
+class MathItem extends Object with ObservableMixin {
+  @observable String firstValue, secondValue;
+  MathItem([this.firstValue = '', this.secondValue = '']);
+}
+
+class EqnElement extends Object with ObservableMixin {
+  @observable String paragraphOne, paragraphTwo;
+  @observable MathItem initial;
+  EqnElement(this.initial, this.paragraphOne, this.paragraphTwo);
 }
 
 @CustomTag('equation-element')
 class Equations extends PolymerElement with ObservableMixin {
   String ncoeff, dcoeff;
-  @observable Math math = new Math();
-  @observable String id = '';
+  @observable MathItem math = new MathItem();
+
+  // The id of each equation element.
+  static final List ids = [
+                           'equation-convolution',
+                           'equation-deconvolution',
+                           'equation-sequence',
+                           'equation-fourier',
+                           'equation-filter'
+                           ];
+
+  // Initializing each equation element.
+  // TODO - strings for each input field (including optional fields).
+  final Map eqn_element = {
+                           ids[0] : new EqnElement(new MathItem(
+                               '1, 2, 0, 3', '4, 0, 6'),
+                               'This is a test ${ids[0]}',
+                               'This is another test ${ids[0]}'
+                               ),
+                           ids[1] : new EqnElement(new MathItem(
+                               '4, 9, 2, 1', '3, 4, 7'),
+                               'This is a test ${ids[1]}',
+                               'This is another test ${ids[1]}'
+                               ),
+                           ids[2] : new EqnElement(new MathItem(
+                               '9, 0, 4', '6, 7, 8'),
+                               'This is a test ${ids[2]}',
+                               'This is another test ${ids[2]}'
+                               ),
+                           ids[3] : new EqnElement(new MathItem(
+                               '4, 5, 6, 7', '1, 0, 9'),
+                               'This is a test ${ids[3]}',
+                               'This is another test ${ids[3]}'
+                               ),
+                           ids[4] : new EqnElement(new MathItem(
+                               '6, 7, 7, 6', '3, 3, 3'),
+                               'This is a test ${ids[4]}',
+                               'This is another test ${ids[4]}'
+                               )
+  };
 
   // This is not in the shadow dom since MathJax
   // does not typset inside a polymer-element.
   // This is likely due to js-interop not working
   // with the shadow-dom yet.
-  DivElement numeratordiv = query('#numerator');
-  DivElement denominatordiv = query('#denominator');
-  DivElement solutiondiv = query('#solution');
-  DivElement resultsdiv = query('#results');
+  DivElement numeratordiv = query('#numerator-convolution');
+  DivElement denominatordiv = query('#denominator-convolution');
+  DivElement solutiondiv = query('#solution-convolution');
+  DivElement resultsdiv = query('#results-convolution');
 
   bool get applyAuthorStyles => true;
 
+  created() {
+    super.created();
+    //print(this.id);
+  }
+
   void render(Event e, var detail, Node target) {
-    ncoeff = math.numerator;
-    dcoeff = math.denominator;
+    if (math.firstValue.isEmpty) {
+      ncoeff = eqn_element[this.id].initial.firstValue;
+    } else {
+      ncoeff = math.firstValue;
+    }
+    if (math.secondValue.isEmpty) {
+      dcoeff = eqn_element[this.id].initial.secondValue;
+    } else {
+      dcoeff = math.secondValue;
+    }
+
     Sequence numeqn = sequence(ncoeff.split(",")
         .where((element) => element.trim().isNotEmpty)
           .map((element)=> int.parse(element)));

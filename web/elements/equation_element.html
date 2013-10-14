@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 
-<polymer-element name="equation-element" extends="div">
+<polymer-element name="equation-element">
   <template>
     <div class="border well">
-      <p>Enter the numerator coefficients separated by commas:</p>
-      <input type="text" placeholder="1, 2, 0, 3" value="{{math.numerator}}">
+      <p>{{eqn_element[this.id].paragraphOne}}</p>
+      <input type="text" placeholder="{{eqn_element[this.id].initial.firstValue}}" value="{{math.firstValue}}">
     </div>
     <div class="border well">
-      <p>Enter the denominator coefficients separated by commas:</p>
-      <input type="text" placeholder="4, 0, 6"value="{{math.denominator}}">
+      <p>{{eqn_element[this.id].paragraphTwo}}</p>
+      <input type="text" placeholder="{{eqn_element[this.id].initial.secondValue}}" value="{{math.secondValue}}">
     </div>
     <div class="border well">
       <button on-click="render" class="btn btn-primary btn-lg">Compute &raquo;</button>
