@@ -2,6 +2,7 @@ import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'package:convolab/convolab.dart';
 import 'package:js/js.dart' as js;
+import 'package:ace/ace.dart' as ace;
 
 class MathItem extends Object with ObservableMixin {
   @observable String firstValue, secondValue;
@@ -21,37 +22,37 @@ class Equations extends PolymerElement with ObservableMixin {
 
   // The id of each equation element.
   static final List ids = [
-                           'equation-convolution',
-                           'equation-deconvolution',
-                           'equation-sequence',
-                           'equation-fourier',
-                           'equation-filter'
+                           'convolution',
+                           'deconvolution',
+                           'sequence',
+                           'fourier',
+                           'filter'
                            ];
 
   // Initializing each equation element.
   // TODO - strings for each input field (including optional fields).
   final Map eqn_element = {
-                           ids[0] : new EqnElement(new MathItem(
+                           "equation-${ids[0]}" : new EqnElement(new MathItem(
                                '1, 2, 0, 3', '4, 0, 6'),
                                'This is a test ${ids[0]}',
                                'This is another test ${ids[0]}'
                                ),
-                           ids[1] : new EqnElement(new MathItem(
+                           "equation-${ids[1]}" : new EqnElement(new MathItem(
                                '4, 9, 2, 1', '3, 4, 7'),
                                'This is a test ${ids[1]}',
                                'This is another test ${ids[1]}'
                                ),
-                           ids[2] : new EqnElement(new MathItem(
+                           "equation-${ids[2]}" : new EqnElement(new MathItem(
                                '9, 0, 4', '6, 7, 8'),
                                'This is a test ${ids[2]}',
                                'This is another test ${ids[2]}'
                                ),
-                           ids[3] : new EqnElement(new MathItem(
+                           "equation-${ids[3]}" : new EqnElement(new MathItem(
                                '4, 5, 6, 7', '1, 0, 9'),
                                'This is a test ${ids[3]}',
                                'This is another test ${ids[3]}'
                                ),
-                           ids[4] : new EqnElement(new MathItem(
+                           "equation-${ids[4]}" : new EqnElement(new MathItem(
                                '6, 7, 7, 6', '3, 3, 3'),
                                'This is a test ${ids[4]}',
                                'This is another test ${ids[4]}'
@@ -74,7 +75,30 @@ class Equations extends PolymerElement with ObservableMixin {
     //print(this.id);
   }
 
-  void render(Event e, var detail, Node target) {
+  String test = """
+  Sequence numeqn = sequence(ncoeff.split(",")
+      .where((element) => element.trim().isNotEmpty)
+        .map((element)=> int.parse(element)));
+  Sequence deneqn = sequence(dcoeff.split(",")
+      .where((element) => element.trim().isNotEmpty)
+        .map((element)=> int.parse(element)));
+  var convolution = conv(numeqn, deneqn);
+  numeratordiv.innerHtml = pstring(numeqn);
+  denominatordiv.innerHtml = pstring(deneqn);
+  solutiondiv.innerHtml = convolution.format();
+  """;
+
+  // foreach(element in editor_list) {
+  // editor[this.id] = ace.edit(query('#editor-${this.id}'));
+  // need an array of editors.  how best to do that?
+  var editor = ace.edit(query('#editor-convolution'))
+      ..theme = new ace.Theme("ace/theme/clouds_midnight")
+      ..session.mode = new ace.Mode("ace/mode/dart")
+      ..session.tabSize = 2
+      ..session.useSoftTabs = true;
+
+  void render(Event e, var detail, Element target) {
+    print(this.id.split("-")[1]);
     if (math.firstValue.isEmpty) {
       ncoeff = eqn_element[this.id].initial.firstValue;
     } else {
@@ -86,6 +110,8 @@ class Equations extends PolymerElement with ObservableMixin {
       dcoeff = math.secondValue;
     }
 
+    editor.session.insert(editor.cursorPosition, test);
+
     Sequence numeqn = sequence(ncoeff.split(",")
         .where((element) => element.trim().isNotEmpty)
           .map((element)=> int.parse(element)));
@@ -96,6 +122,7 @@ class Equations extends PolymerElement with ObservableMixin {
     numeratordiv.innerHtml = pstring(numeqn);
     denominatordiv.innerHtml = pstring(deneqn);
     solutiondiv.innerHtml = convolution.format();
+
     js.Proxy context = js.context;
     js.scoped(() {
       // This repesents the following:

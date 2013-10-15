@@ -60,7 +60,11 @@ input[type="text"] {
   padding-left: 5px;
 }
 /* Editor */
-#editor {
+#editor-convolution,
+#editor-deconvolution,
+#editor-sequence,
+#editor-fourier,
+#editor-filter {
   height: 525px;
   padding: 10px;
 }
@@ -81,7 +85,7 @@ input[type="text"] {
   position:absolute;
 }
 #content .active {
-  /*position:relative;*/
+  position:relative;
   margin:0 6%;
   left:5%;
 }
@@ -235,9 +239,4 @@ input[type="text"] {
 }
 .to-previous-r {
   -webkit-animation: toPrevR 1s ease-in-out;
-}
-
-#equation-convolution {
-  background-color: blue;
-}
 }

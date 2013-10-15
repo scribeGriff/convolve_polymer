@@ -15,7 +15,7 @@
     <script type="text/javascript" src="packages/browser/interop.js"></script>
     <script type="text/javascript" src="packages/js/dart_interop.js"></script>
     <script type="text/javascript" charset="utf-8" src="packages/ace/src/js/ace.js"></script>
-    <script type="application/dart" src="application/application.dart"></script>
+    <!-- <script type="application/dart" src="application/application.dart"></script> -->
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         tex2jax: {
@@ -57,10 +57,11 @@
             <p>$$y(n) = x(n) * h(n) = 4 + 8n^{-1} + 6n^{-2} + 24n^{-3} + 18n^{-5}$$</p>
           </div>
           <div class="col-lg-4">
-            <h3> Convolution </h3>
+            <h3> Data </h3>
             <equation-element id="equation-convolution"></equation-element>
           </div> 
           <div id="results-convolution" class="col-lg-4">
+            <h3> Results </h3>
             <div id="numerator-convolution"></div>
             <div id="denominator-convolution"></div>
             <div id="solution-convolution"></div>
@@ -68,7 +69,8 @@
           </div>
         <div class="row">
           <div class="col-md-8 col-md-offset-1">
-            <div id="editor"></div>
+            <h3> Code </h3>
+            <div id="editor-convolution"></div>
           </div>
         </div>
       </div>
@@ -84,6 +86,12 @@
           <div id="solution2"></div>
         </div>
       </div>
+      <div class="row">
+          <div class="col-md-8 col-md-offset-1">
+            <h3> Code </h3>
+            <div id="editor-deconvolution"></div>
+          </div>
+        </div>
     </div>
     <div id="sequence" class="previous page clearfix">
       <h3> Sequences </h3>
@@ -97,6 +105,12 @@
           <div id="solution3"></div>
         </div>
       </div>
+      <div class="row">
+          <div class="col-md-8 col-md-offset-1">
+            <h3> Code </h3>
+            <div id="editor-sequence"></div>
+          </div>
+        </div>
     </div>
     <div id="fourier" class="previous-previous page clearfix">
       <h3> Fourier </h3>
@@ -110,6 +124,12 @@
           <div id="solution4"></div>
         </div>
       </div>
+      <div class="row">
+          <div class="col-md-8 col-md-offset-1">
+            <h3> Code </h3>
+            <div id="editor-fourier"></div>
+          </div>
+        </div>
     </div>
     <div id="filter" class="next-next page clearfix">
       <h3> Filters </h3>
@@ -123,6 +143,12 @@
           <div id="solution5"></div>
         </div>
       </div>
+      <div class="row">
+          <div class="col-md-8 col-md-offset-1">
+            <h3> Code </h3>
+            <div id="editor-filter"></div>
+          </div>
+        </div>
     </div>
     </div> <!-- content -->
   </body>
