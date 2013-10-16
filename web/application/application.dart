@@ -16,7 +16,7 @@ main() {
   denominatordiv.innerHtml = pstring(deneqn);
   solutiondiv.innerHtml = convolution.format();
   """;
-  var editor = ace.edit(query('#editor1'))
+  var editor = ace.edit(query('#editor'))
       ..theme = new ace.Theme("ace/theme/clouds_midnight")
       ..session.mode = new ace.Mode("ace/mode/dart");
 

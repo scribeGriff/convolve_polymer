@@ -59,6 +59,14 @@ class Equations extends PolymerElement with ObservableMixin {
                                )
   };
 
+  final Map editors = {
+                       "equation-${ids[0]}" : ace.edit(query('#editor-${ids[0]}')),
+                       "equation-${ids[1]}" : ace.edit(query('#editor-${ids[1]}')),
+                       "equation-${ids[2]}" : ace.edit(query('#editor-${ids[2]}')),
+                       "equation-${ids[3]}" : ace.edit(query('#editor-${ids[3]}')),
+                       "equation-${ids[4]}" : ace.edit(query('#editor-${ids[4]}'))
+  };
+
   // This is not in the shadow dom since MathJax
   // does not typset inside a polymer-element.
   // This is likely due to js-interop not working
@@ -73,6 +81,12 @@ class Equations extends PolymerElement with ObservableMixin {
   created() {
     super.created();
     //print(this.id);
+    //print(this.id.split("-")[1]);
+    editors[this.id]
+      ..theme = new ace.Theme("ace/theme/monokai")
+      ..session.mode = new ace.Mode("ace/mode/dart")
+      ..session.tabSize = 2
+      ..session.useSoftTabs = true;
   }
 
   String test = """
@@ -88,17 +102,7 @@ class Equations extends PolymerElement with ObservableMixin {
   solutiondiv.innerHtml = convolution.format();
   """;
 
-  // foreach(element in editor_list) {
-  // editor[this.id] = ace.edit(query('#editor-${this.id}'));
-  // need an array of editors.  how best to do that?
-  var editor = ace.edit(query('#editor-convolution'))
-      ..theme = new ace.Theme("ace/theme/clouds_midnight")
-      ..session.mode = new ace.Mode("ace/mode/dart")
-      ..session.tabSize = 2
-      ..session.useSoftTabs = true;
-
   void render(Event e, var detail, Element target) {
-    print(this.id.split("-")[1]);
     if (math.firstValue.isEmpty) {
       ncoeff = eqn_element[this.id].initial.firstValue;
     } else {
@@ -110,7 +114,7 @@ class Equations extends PolymerElement with ObservableMixin {
       dcoeff = math.secondValue;
     }
 
-    editor.session.insert(editor.cursorPosition, test);
+    editors[this.id].session.insert(editors[this.id].cursorPosition, test);
 
     Sequence numeqn = sequence(ncoeff.split(",")
         .where((element) => element.trim().isNotEmpty)
