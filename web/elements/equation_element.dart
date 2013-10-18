@@ -83,13 +83,15 @@ class Equations extends PolymerElement with ObservableMixin {
     //print(this.id);
     //print(this.id.split("-")[1]);
     editors[this.id]
-      ..theme = new ace.Theme("ace/theme/monokai")
+      ..theme = new ace.Theme("ace/theme/textmate")
       ..session.mode = new ace.Mode("ace/mode/dart")
       ..session.tabSize = 2
       ..session.useSoftTabs = true;
   }
 
   String test = """
+  final List<String> test = ["string1", "string2"];
+  static final Map<String> test2 = new Map(); 
   Sequence numeqn = sequence(ncoeff.split(",")
       .where((element) => element.trim().isNotEmpty)
         .map((element)=> int.parse(element)));

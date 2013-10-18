@@ -75,15 +75,20 @@
         </div>
       </div>
     <div id="deconvolution" class="next page clearfix">
-      <h3> Deconvolution </h3>
       <div class="row">
-        <div class="col-lg-4">
-         <equation-element id="equation-deconvolution"></equation-element>
+        <div class="container">
+          <h2>Deconvolution by Polynomial Division</h2>
+          <p>$$h(n) = \frac{N(n)}{D(n)} = n - 1 + 2n^{-1} - 2n^{-2} + \frac{3n^{-2} + 3n^{-3}}{n + 2 + n^{-1}}$$</p>
         </div>
-        <div id="results2" class="col-lg-4">
-          <div id="numerator2"></div>
-          <div id="denominator2"></div>
-          <div id="solution2"></div>
+        <div class="col-lg-4">
+          <h3> Data </h3>
+          <equation-element id="equation-deconvolution"></equation-element>
+        </div>
+        <div id="results-deconvolution" class="col-lg-4">
+          <h3> Results </h3>
+          <div id="numerator-deconvolution"></div>
+          <div id="denominator-deconvolution"></div>
+          <div id="solution-deconvolution"></div>
         </div>
       </div>
       <div class="row">
@@ -94,15 +99,20 @@
         </div>
     </div>
     <div id="sequence" class="previous page clearfix">
-      <h3> Sequences </h3>
       <div class="row">
-        <div class="col-lg-4">
-         <equation-element id="equation-sequence"></equation-element>
+        <div class="container">
+          <h2>Operations with Sequences</h2>
+          <p>$$x_1(n) = 2x(n - 5) - 3x(n + 4) + 7x(n - 1)$$</p>
         </div>
-        <div id="results3" class="col-lg-4">
-          <div id="numerator3"></div>
-          <div id="denominator3"></div>
-          <div id="solution3"></div>
+        <div class="col-lg-4">
+          <h3> Data </h3>
+          <equation-element id="equation-sequence"></equation-element>
+        </div>
+        <div id="results-sequence" class="col-lg-4">
+          <h3> Results </h3>
+          <div id="numerator-sequence"></div>
+          <div id="denominator-sequence"></div>
+          <div id="solution-sequence"></div>
         </div>
       </div>
       <div class="row">
@@ -113,15 +123,20 @@
         </div>
     </div>
     <div id="fourier" class="previous-previous page clearfix">
-      <h3> Fourier </h3>
       <div class="row">
-        <div class="col-lg-4">
-         <equation-element id="equation-fourier"></equation-element>
+        <div class="container">
+          <h2>Fourier Series Analysis</h2>
+          <p>$$x\bigl(n\bigr) = \frac{a_0}{N}+ \frac{2}{N}\sum_{k=1}^{\frac{N}{2}-1}a_kcos(k\frac{2\pi}{N}n) + b_ksin(k\frac{2\pi}{N}n)$$</p>
         </div>
-        <div id="results4" class="col-lg-4">
-          <div id="numerator4"></div>
-          <div id="denominator4"></div>
-          <div id="solution4"></div>
+        <div class="col-lg-4">
+          <h3> Data </h3>
+          <equation-element id="equation-fourier"></equation-element>
+        </div>
+        <div id="results-fourier" class="col-lg-4">
+          <h3> Results </h3>
+          <div id="numerator-fourier"></div>
+          <div id="denominator-fourier"></div>
+          <div id="solution-fourier"></div>
         </div>
       </div>
       <div class="row">
@@ -132,24 +147,29 @@
         </div>
     </div>
     <div id="filter" class="next-next page clearfix">
-      <h3> Filters </h3>
       <div class="row">
-        <div class="col-lg-4">
-         <equation-element id="equation-filter"></equation-element>
+        <div class="container">
+          <h2>One Dimensional Filter Analysis</h2>
+          <p>$$y(n) = x(n) + y(n - 1) - 0.9y(n - 2))$$</p>
         </div>
-        <div id="results5" class="col-lg-4">
-          <div id="numerator5"></div>
-          <div id="denominator5"></div>
-          <div id="solution5"></div>
+        <div class="col-lg-4">
+          <h3> Data </h3>
+          <equation-element id="equation-filter"></equation-element>
+        </div>
+        <div id="results-filter" class="col-lg-4">
+          <h3> Results </h3>
+          <div id="numerator-filter"></div>
+          <div id="denominator-filter"></div>
+          <div id="solution-filter"></div>
         </div>
       </div>
       <div class="row">
-          <div class="col-md-8 col-md-offset-1">
-            <h3> Code </h3>
-            <div id="editor-filter"></div>
-          </div>
+        <div class="col-md-8 col-md-offset-1">
+          <h3> Code </h3>
+          <div id="editor-filter"></div>
         </div>
-    </div>
+        </div>
+      </div>
     </div> <!-- content -->
   </body>
 </html>
