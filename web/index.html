@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400&subset=latin">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,400,700|Raleway:400,300,700">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/hint.min.css">
     <link rel="stylesheet" href="css/convolve_polymer.css">
     <link rel="import" href="elements/equation_element.html">
     <link rel="import" href="elements/navbar_element.html">
@@ -15,7 +17,6 @@
     <script type="text/javascript" src="packages/browser/interop.js"></script>
     <script type="text/javascript" src="packages/js/dart_interop.js"></script>
     <script type="text/javascript" charset="utf-8" src="packages/ace/src/js/ace.js"></script>
-    <!-- <script type="application/dart" src="application/application.dart"></script> -->
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         tex2jax: {
@@ -53,8 +54,8 @@
         <div id="convolution" class="active page clearfix">
         <div class="row">
           <div class="container">
-            <h2>Convolution of Two Sequences</h2>
-            <p>$$y(n) = x(n) \ast h(n) = 4 + 8n^{-1} + 6n^{-2} + 24n^{-3} + 18n^{-5}$$</p>
+            <h4>$$x(z) = z + 2 + 3z^{-1} \qquad h(z) = 2z^{2} + 4z + 3 + 5z^{-1}$$</h4>
+            <h4>$$y(z) = x(z) \ast h(z) = 2z^{3} + 8z^{2} + 17z + 23 + 19z^{-1} + 15z^{-2}$$</h4>
           </div>
           <div class="col-lg-4">
             <h3> Data </h3>
@@ -78,7 +79,7 @@
       <div class="row">
         <div class="container">
           <h2>Deconvolution by Polynomial Division</h2>
-          <p>$$h(n) = \frac{N(n)}{D(n)} = n - 1 + 2n^{-1} - 2n^{-2} + \frac{3n^{-2} + 3n^{-3}}{n + 2 + n^{-1}}$$</p>
+          <p>$$h(z) = \frac{N(z)}{D(z)} = z - 1 + 2z^{-1} - 2z^{-2} + \frac{3z^{-2} + 3z^{-3}}{z + 2 + z^{-1}}$$</p>
         </div>
         <div class="col-lg-4">
           <h3> Data </h3>

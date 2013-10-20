@@ -5,14 +5,18 @@ import 'package:js/js.dart' as js;
 import 'package:ace/ace.dart' as ace;
 
 class MathItem extends Object with ObservableMixin {
-  @observable String firstValue, secondValue;
-  MathItem([this.firstValue = '', this.secondValue = '']);
+  @observable String firstValue, secondValue, firstValueIndex;
+  MathItem([
+            this.firstValue = '',
+            this.secondValue = '',
+            this.firstValueIndex = ''
+            ]);
 }
 
 class EqnElement extends Object with ObservableMixin {
-  @observable String paragraphOne, paragraphTwo;
+  @observable String paragraphOne, paragraphTwo, toolTip;
   @observable MathItem initial;
-  EqnElement(this.initial, this.paragraphOne, this.paragraphTwo);
+  EqnElement(this.initial, this.paragraphOne, this.paragraphTwo, this.toolTip);
 }
 
 @CustomTag('equation-element')
@@ -33,29 +37,35 @@ class Equations extends PolymerElement with ObservableMixin {
   // TODO - strings for each input field (including optional fields).
   final Map eqn_element = {
                            "equation-${ids[0]}" : new EqnElement(new MathItem(
-                               '1, 2, 0, 3', '4, 0, 6'),
-                               'This is a test ${ids[0]}',
-                               'This is another test ${ids[0]}'
+                               '1, 2, 0, 3', '4, 0, 6', '0'),
+                               'Enter the coefficients for x(z):',
+                               'Enter the coefficients for h(z):',
+                               'The zero index is the index that corresponds'
+                                   ' to the coefficient for z^0'
                                ),
                            "equation-${ids[1]}" : new EqnElement(new MathItem(
                                '4, 9, 2, 1', '3, 4, 7'),
                                'This is a test ${ids[1]}',
-                               'This is another test ${ids[1]}'
+                               'This is another test ${ids[1]}',
+                               'Placeholder for toolTip'
                                ),
                            "equation-${ids[2]}" : new EqnElement(new MathItem(
                                '9, 0, 4', '6, 7, 8'),
                                'This is a test ${ids[2]}',
-                               'This is another test ${ids[2]}'
+                               'This is another test ${ids[2]}',
+                               'Placeholder for toolTip'
                                ),
                            "equation-${ids[3]}" : new EqnElement(new MathItem(
                                '4, 5, 6, 7', '1, 0, 9'),
                                'This is a test ${ids[3]}',
-                               'This is another test ${ids[3]}'
+                               'This is another test ${ids[3]}',
+                               'Placeholder for toolTip'
                                ),
                            "equation-${ids[4]}" : new EqnElement(new MathItem(
                                '6, 7, 7, 6', '3, 3, 3'),
                                'This is a test ${ids[4]}',
-                               'This is another test ${ids[4]}'
+                               'This is another test ${ids[4]}',
+                               'Placeholder for toolTip'
                                )
   };
 

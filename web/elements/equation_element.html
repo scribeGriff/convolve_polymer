@@ -3,8 +3,11 @@
 <polymer-element name="equation-element">
   <template>
     <div class="border well">
+      <div class="btn btn-small btn-info pull-right hint--bottom hint--rounded hint--bounce" href="#" data-hint="{{eqn_element[this.id].toolTip}}"><i class="icon-info-sign"></i> tip </div>
       <p>{{eqn_element[this.id].paragraphOne}}</p>
-      <input type="text" placeholder="{{eqn_element[this.id].initial.firstValue}}" value="{{math.firstValue}}">
+      <input type="text" class="wide" placeholder="{{eqn_element[this.id].initial.firstValue}}" value="{{math.firstValue}}">
+      <p>Index of zero element</p>
+      <input type="text" class="narrow" placeholder="{{eqn_element[this.id].initial.firstValueIndex}}" value="{{math.firstValueIndex}}">
     </div>
     <div class="border well">
       <p>{{eqn_element[this.id].paragraphTwo}}</p>
