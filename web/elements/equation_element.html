@@ -3,7 +3,7 @@
 <polymer-element name="equation-element">
   <template>
     <div class="border well">
-      <div class="btn btn-small btn-info pull-right hint--bottom hint--rounded hint--bounce" href="#" data-hint="{{eqn_element[this.id].toolTip}}"><i class="icon-info-sign"></i> tip </div>
+      <div class="btn btn-small btn-info pull-right hint--bottom hint--rounded hint--bounce hint--info" href="#" data-hint="{{eqn_element[this.id].toolTip}}"><i class="icon-info-sign"></i> tip </div>
       <p>{{eqn_element[this.id].paragraphOne}}</p>
       <input type="text" class="wide" placeholder="{{eqn_element[this.id].initial.firstValue}}" value="{{math.firstValue}}">
       <p>Index of zero element</p>
@@ -13,6 +13,35 @@
       <p>{{eqn_element[this.id].paragraphTwo}}</p>
       <input type="text" placeholder="{{eqn_element[this.id].initial.secondValue}}" value="{{math.secondValue}}">
     </div>
+    
+    <form role="form">
+      <div class="form-group">
+        <label for="xsequencecoefficients">{{eqn_element[this.id].paragraphOne}}</label>
+        <div class="input-group" id="xsequencecoefficients">
+          <input type="text" class="form-control">
+          <span class="input-group-btn">
+            <button class="btn btn-default btn-info hint--bottom hint--rounded hint--bounce hint--info" type="button" data-hint="{{eqn_element[this.id].toolTip}}"><i class="icon-question-sign icon-large"></i></button>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputFile">File input</label>
+        <input type="file" id="exampleInputFile">
+        <p class="help-block">Example block-level help text here.</p>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Check me out
+        </label>
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    
+    
     <div class="border well">
       <button on-click="render" class="btn btn-primary btn-lg">Compute &raquo;</button>
     </div>

@@ -38,8 +38,8 @@ class Equations extends PolymerElement with ObservableMixin {
   final Map eqn_element = {
                            "equation-${ids[0]}" : new EqnElement(new MathItem(
                                '1, 2, 0, 3', '4, 0, 6', '0'),
-                               'Enter the coefficients for x(z):',
-                               'Enter the coefficients for h(z):',
+                               'X Sequence Coefficients:',
+                               'H Sequence Coefficients:',
                                'The zero index is the index that corresponds'
                                    ' to the coefficient for z^0'
                                ),
