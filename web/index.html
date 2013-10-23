@@ -7,7 +7,7 @@
     <title>Building Convo.lv with Polymer</title>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400&subset=latin">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,400,700|Raleway:400,300,700">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/magic-bootstrap-min.css">
     <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/hint.min.css">
     <link rel="stylesheet" href="css/convolve_polymer.css">
@@ -54,24 +54,41 @@
         <div id="convolution" class="active page clearfix">
         <div class="row">
           <div class="container">
-            <h4>$$x(z) = z + 2 + 3z^{-1} \qquad h(z) = 2z^{2} + 4z + 3 + 5z^{-1}$$</h4>
+            <h4>$$x(z) = z + 2 + 3z^{-1}$$</h4>
+            <h4>$$h(z) = 2z^{2} + 4z + 3 + 5z^{-1}$$</h4>
             <h4>$$y(z) = x(z) \ast h(z) = 2z^{3} + 8z^{2} + 17z + 23 + 19z^{-1} + 15z^{-2}$$</h4>
           </div>
-          <div class="col-lg-4">
-            <h3> Data </h3>
-            <equation-element id="equation-convolution"></equation-element>
-          </div> 
-          <div id="results-convolution" class="col-lg-4">
-            <h3> Results </h3>
-            <div id="numerator-convolution"></div>
-            <div id="denominator-convolution"></div>
-            <div id="solution-convolution"></div>
           </div>
+          <div class="spacer"></div>
+          <div class="row">
+            <div class="col-lg-6">
+              <equation-element id="equation-convolution"></equation-element>
+            </div>
+            <div class="col-lg-6">
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Results</h3>
+                </div>
+                <div class="panel-body"> 
+                  <div id="results-convolution">
+                    <div id="numerator-convolution"></div>
+                    <div id="denominator-convolution"></div>
+                    <div id="solution-convolution"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         <div class="row">
-          <div class="col-md-8 col-md-offset-1">
-            <h3> Code </h3>
-            <div id="editor-convolution"></div>
+          <div class="col-lg-12">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">Code</h3>
+              </div>
+              <div class="panel-body">
+                <div id="editor-convolution"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
