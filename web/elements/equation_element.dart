@@ -4,7 +4,7 @@ import 'package:convolab/convolab.dart';
 import 'package:js/js.dart' as js;
 import 'package:ace/ace.dart' as ace;
 
-class MathItem extends Object with ObservableMixin {
+class MathItem extends Observable {
   @observable String firstValue, secondValue;
   @observable String firstValueIndex, secondValueIndex;
   MathItem([
@@ -15,7 +15,7 @@ class MathItem extends Object with ObservableMixin {
             ]);
 }
 
-class EqnElement extends Object with ObservableMixin {
+class EqnElement extends Observable {
   @observable String paragraphOne, paragraphOneIndex, paragraphTwo, paragraphTwoIndex;
   @observable String toolTipOne, toolTipOneIndex, toolTipTwo, toolTipTwoIndex;
   @observable MathItem initial;
@@ -25,7 +25,7 @@ class EqnElement extends Object with ObservableMixin {
 }
 
 @CustomTag('equation-element')
-class Equations extends PolymerElement with ObservableMixin {
+class Equations extends PolymerElement {
   String ncoeff, dcoeff;
   @observable MathItem math = new MathItem();
 
@@ -103,26 +103,25 @@ class Equations extends PolymerElement with ObservableMixin {
   };
 
   final Map editors = {
-                       "equation-${ids[0]}" : ace.edit(query('#editor-${ids[0]}')),
-                       "equation-${ids[1]}" : ace.edit(query('#editor-${ids[1]}')),
-                       "equation-${ids[2]}" : ace.edit(query('#editor-${ids[2]}')),
-                       "equation-${ids[3]}" : ace.edit(query('#editor-${ids[3]}')),
-                       "equation-${ids[4]}" : ace.edit(query('#editor-${ids[4]}'))
+                       "equation-${ids[0]}" : ace.edit(querySelector('#editor-${ids[0]}')),
+                       "equation-${ids[1]}" : ace.edit(querySelector('#editor-${ids[1]}')),
+                       "equation-${ids[2]}" : ace.edit(querySelector('#editor-${ids[2]}')),
+                       "equation-${ids[3]}" : ace.edit(querySelector('#editor-${ids[3]}')),
+                       "equation-${ids[4]}" : ace.edit(querySelector('#editor-${ids[4]}'))
   };
 
   // This is not in the shadow dom since MathJax
   // does not typset inside a polymer-element.
   // This is likely due to js-interop not working
   // with the shadow-dom yet.
-  DivElement numeratordiv = query('#numerator-convolution');
-  DivElement denominatordiv = query('#denominator-convolution');
-  DivElement solutiondiv = query('#solution-convolution');
-  DivElement resultsdiv = query('#results-convolution');
+  DivElement numeratordiv = querySelector('#numerator-convolution');
+  DivElement denominatordiv = querySelector('#denominator-convolution');
+  DivElement solutiondiv = querySelector('#solution-convolution');
+  DivElement resultsdiv = querySelector('#results-convolution');
 
   bool get applyAuthorStyles => true;
 
-  created() {
-    super.created();
+  Equations.created() : super.created() {
     //print(this.id);
     //print(this.id.split("-")[1]);
     editors[this.id]

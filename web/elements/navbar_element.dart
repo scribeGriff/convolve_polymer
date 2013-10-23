@@ -2,18 +2,21 @@ import 'dart:html';
 import 'package:polymer/polymer.dart';
 
 /// The Item class represents an item in the navigation bar.
-class Item extends Object with ObservableMixin {
+class Item extends Observable {
   @observable String text;
   @observable String id;
   @observable bool selected;
 
   Item(this.text, this.id, this.selected) {
-    onPropertyChange(this, const Symbol('selected'),
-        () => notifyProperty(this, const Symbol('arrowClass')));
+    onPropertyChange(this, #selected, () =>
+        notifyPropertyChange(#arrowClass, null, selected));
   }
 
-  // Apply a selected class for completed items.
-  String get arrowClass {
+  // Apply a selected class for the selected items.
+  // There is a suggestion that much of the above could just be
+  // replaced with @dependsOn.
+  // @dependsOn([#selected])
+  @reflectable String get arrowClass {
     if (selected) return 'active';
     else return 'cl-effect';
   }
@@ -21,7 +24,8 @@ class Item extends Object with ObservableMixin {
 
 /// The navigation bar.
 @CustomTag('navbar-element')
-class NavbarElement extends PolymerElement with ObservableMixin {
+class NavbarElement extends PolymerElement {
+  // TODO: Does this list need to be observable?
   final ObservableList<Item> menu =
       toObservable([
                     new Item('Fourier', 'fourier', false),
@@ -55,6 +59,8 @@ class NavbarElement extends PolymerElement with ObservableMixin {
 
   bool get applyAuthorStyles => true;
 
+  NavbarElement.created() : super.created();
+
 // This doesn't work and not sure why.
 //  NavBarElement() {
 //    // The default selection is convolution which is the 2nd entry in menu.
@@ -78,14 +84,14 @@ class NavbarElement extends PolymerElement with ObservableMixin {
       });
       // Now add the animation class to each element referenced in the menu.
       for (var i = 0; i < menu.length; i++) {
-        query("#${menu[i].id}").classes
+        querySelector("#${menu[i].id}").classes
           .add("to-${classList.elementAt(defaultSelection + i + offsetClass)}");
       }
       // Wait for the animation to finish updating the current element, then
       // remove the animation class and add the classes for the final position.
       window.onAnimationEnd.first.then((_) {
         for (var i = 0; i < menu.length; i++) {
-          query("#${menu[i].id}")
+          querySelector("#${menu[i].id}")
             ..classes.removeAll(classList)
             ..classes.remove("to-${classList.elementAt(defaultSelection + i + offsetClass)}")
             ..classes.add(classList.elementAt(defaultSelection + i + offsetClass));

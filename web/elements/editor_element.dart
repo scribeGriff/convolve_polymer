@@ -21,8 +21,7 @@ class Editor extends PolymerElement {
 
   var editor;
 
-  created() {
-    super.created();
+  Editor.created() : super.created() {
     Element aceElement = $['editor'];
     editor = ace.edit($['editor'])
         ..theme = new ace.Theme("ace/theme/clouds_midnight")
