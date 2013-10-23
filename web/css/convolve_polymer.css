@@ -101,6 +101,7 @@ input[type="text"].narrow {
   position:relative;
   margin:0 6%;
   left:5%;
+  opacity: 1;
 }
 #content .next,
 #content .previous {
@@ -108,6 +109,7 @@ input[type="text"].narrow {
   background-color: #EFF0F1;
   cursor:pointer;
   border-radius: 10px;
+  opacity: 0.5;
 }
 #content .next-next,
 #content .previous-previous,
@@ -117,6 +119,7 @@ input[type="text"].narrow {
 #content .previous-r {
   top: 0;
   background-color: #EFF0F1;
+  opacity: 0.5;
 }
 #content .next {
   left: 95%;
@@ -150,6 +153,7 @@ input[type="text"].narrow {
     margin-right: 6%;
     margin-left: 6%;
     background-color: #FFF;
+    opacity: 1;
   }
 }
 .to-active {
@@ -163,6 +167,7 @@ input[type="text"].narrow {
     margin-left: 0;
     background-color: #EFF0F1;
     border-radius: 10px;
+    opacity: 0.5;
   }
 }
 .to-next {
@@ -176,6 +181,7 @@ input[type="text"].narrow {
     margin-left: 0;
     background-color: #EFF0F1;
     border-radius: 10px;
+    opacity: 0.5;
   }
 }
 .to-previous {
@@ -188,6 +194,7 @@ input[type="text"].narrow {
     margin-right: 0;
     margin-left: 0;
     background-color: #EFF0F1;
+    opacity: 0.5;
   }
 }
 .to-previous-previous {
@@ -200,6 +207,7 @@ input[type="text"].narrow {
     margin-right: 0;
     margin-left: 0;
     background-color: #EFF0F1;
+    opacity: 0.5;
   }
 }
 .to-next-next {
@@ -212,6 +220,7 @@ input[type="text"].narrow {
     margin-right: 0;
     margin-left: 0;
     background-color: #EFF0F1;
+    opacity: 0.5;
   }
 }
 .to-next-l {
@@ -224,6 +233,7 @@ input[type="text"].narrow {
     margin-right: 0;
     margin-left: 0;
     background-color: #EFF0F1;
+    opacity: 0.5;
   }
 }
 .to-next-next-l {
@@ -236,6 +246,7 @@ input[type="text"].narrow {
     margin-right: 0;
     margin-left: 0;
     background-color: #EFF0F1;
+    opacity: 0.5;
   }
 }
 .to-previous-previous-r {
@@ -248,6 +259,7 @@ input[type="text"].narrow {
     margin-right: 0;
     margin-left: 0;
     background-color: #EFF0F1;
+    opacity: 0.5;
   }
 }
 .to-previous-r {
