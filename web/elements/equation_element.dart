@@ -26,7 +26,7 @@ class EqnElement extends Observable {
 
 @CustomTag('equation-element')
 class Equations extends PolymerElement {
-  String ncoeff, dcoeff;
+  String ncoeff, nindex, dcoeff, dindex;
   @observable MathItem math = new MathItem();
 
   // The id of each equation element.
@@ -146,17 +146,27 @@ class Equations extends PolymerElement {
   solutiondiv.innerHtml = convolution.format();
   """;
 
-  void render(Event e, var detail, Element target) {
+  void compute(Event e, var detail, Element target) {
     e.preventDefault();
     if (math.firstValue.isEmpty) {
       ncoeff = eqn_element[this.id].initial.firstValue;
     } else {
       ncoeff = math.firstValue;
     }
+    if (math.firstValueIndex.isEmpty) {
+      nindex = eqn_element[this.id].initial.firstValueIndex;
+    } else {
+      nindex = math.firstValueIndex;
+    }
     if (math.secondValue.isEmpty) {
       dcoeff = eqn_element[this.id].initial.secondValue;
     } else {
       dcoeff = math.secondValue;
+    }
+    if (math.secondValueIndex.isEmpty) {
+      dindex = eqn_element[this.id].initial.secondValueIndex;
+    } else {
+      dindex = math.secondValueIndex;
     }
 
     editors[this.id].session.insert(editors[this.id].cursorPosition, test);
@@ -167,10 +177,12 @@ class Equations extends PolymerElement {
     Sequence deneqn = sequence(dcoeff.split(",")
         .where((element) => element.trim().isNotEmpty)
           .map((element)=> int.parse(element)));
-    var convolution = conv(numeqn, deneqn);
-    numeratordiv.innerHtml = pstring(numeqn);
-    denominatordiv.innerHtml = pstring(deneqn);
-    solutiondiv.innerHtml = convolution.format();
+    Sequence numind = numeqn.position(int.parse(nindex));
+    Sequence denind = deneqn.position(int.parse(dindex));
+    var convolution = conv(numeqn, deneqn, numind, denind);
+    numeratordiv.innerHtml = '<p>'+pstring(numeqn, index:int.parse(nindex), variable:'z', name:'x')+'</p>';
+    denominatordiv.innerHtml = '<p>'+pstring(deneqn, index:int.parse(dindex), variable:'z', name:'h')+'</p>';
+    solutiondiv.innerHtml = '<p>'+convolution.format(null, 'z', 'y')+'</p>';
 
     js.Proxy context = js.context;
     js.scoped(() {

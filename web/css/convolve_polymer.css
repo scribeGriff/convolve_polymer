@@ -65,6 +65,9 @@ input[type="text"].narrow {
   width: 50px;
   /*padding-left: 5px;*/
 }
+.panel-body .MathJax_Display {
+text-align: left !important;
+}
 .spacer {
   margin-top: 40px;
 }
