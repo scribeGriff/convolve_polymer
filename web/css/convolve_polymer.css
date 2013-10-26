@@ -71,9 +71,10 @@ input[type="text"].narrow {
 .spacer {
   margin-top: 40px;
 }
-/* temporarily make results box minimum height */
+/* temporarily? fix results box height to match data div*/
 #results-convolution {
-  min-height: 405px;
+  height: 405px;
+  overflow: auto;
 }
 /* Editor */
 #editor-convolution,

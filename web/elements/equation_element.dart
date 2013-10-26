@@ -238,6 +238,9 @@ void main() {
   Sequence nh = h.position($dindex);
   // Compute y = x * h
   var y = conv(x, h, n, nh);
+  // Print the results.
+  print(pstring(x, index:n.indexOf(0), variable:'z', name:'x')
+  print(pstring(h, index:nh.indexOf(0), variable:'z', name:'h'));
   print(y.format('latex', 'z', 'y'));
 }
 """;
