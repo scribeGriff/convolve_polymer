@@ -26,8 +26,8 @@ class EqnElement extends Observable {
 
 @CustomTag('equation-element')
 class Equations extends PolymerElement {
-  String ncoeff, nindex, dcoeff, dindex;
   @observable MathItem math = new MathItem();
+  String ncoeff, nindex, dcoeff, dindex;
 
   // The id of each equation element.
   static final List ids = [
@@ -121,6 +121,8 @@ class Equations extends PolymerElement {
 
   bool get applyAuthorStyles => true;
 
+  var startCursors = new Map();
+
   Equations.created() : super.created() {
     //print(this.id);
     //print(this.id.split("-")[1]);
@@ -128,23 +130,59 @@ class Equations extends PolymerElement {
       ..theme = new ace.Theme("ace/theme/textmate")
       ..session.mode = new ace.Mode("ace/mode/dart")
       ..session.tabSize = 2
-      ..session.useSoftTabs = true;
+      ..session.useSoftTabs = true
+      ..fontSize = 15;
+
+    startCursors[this.id] = editors[this.id].cursorPosition;
   }
 
-  String test = """
-  final List<String> test = ["string1", "string2"];
-  static final Map<String> test2 = new Map(); 
-  Sequence numeqn = sequence(ncoeff.split(",")
-      .where((element) => element.trim().isNotEmpty)
-        .map((element)=> int.parse(element)));
-  Sequence deneqn = sequence(dcoeff.split(",")
-      .where((element) => element.trim().isNotEmpty)
-        .map((element)=> int.parse(element)));
-  var convolution = conv(numeqn, deneqn);
-  numeratordiv.innerHtml = pstring(numeqn);
-  denominatordiv.innerHtml = pstring(deneqn);
-  solutiondiv.innerHtml = convolution.format();
-  """;
+  void render(Event e, var detail, Element target) {
+    e.preventDefault();
+    DivElement targetDiv =
+        querySelector('#${target.attributes["id"]}-${this.id.split("-")[1]}');
+    // TODO Need better naming to make this easier to deal with.
+    if (target.attributes["id"] == 'numerator') {
+      if (math.firstValue.isEmpty) {
+        ncoeff = eqn_element[this.id].initial.firstValue;
+      } else {
+        ncoeff = math.firstValue;
+      }
+      if (math.firstValueIndex.isEmpty) {
+        nindex = eqn_element[this.id].initial.firstValueIndex;
+      } else {
+        nindex = math.firstValueIndex;
+      }
+      Sequence numeqn = sequence(ncoeff.split(",")
+          .where((element) => element.trim().isNotEmpty)
+            .map((element)=> int.parse(element)));
+      targetDiv.innerHtml = '<h4>'+pstring(numeqn, index:int.parse(nindex),
+          variable:'z', name:'x')+'</h4>';
+    } else {
+      if (math.secondValue.isEmpty) {
+        dcoeff = eqn_element[this.id].initial.secondValue;
+      } else {
+        dcoeff = math.secondValue;
+      }
+      if (math.secondValueIndex.isEmpty) {
+        dindex = eqn_element[this.id].initial.secondValueIndex;
+      } else {
+        dindex = math.secondValueIndex;
+      }
+      Sequence deneqn = sequence(dcoeff.split(",")
+          .where((element) => element.trim().isNotEmpty)
+            .map((element)=> int.parse(element)));
+      targetDiv.innerHtml = '<h4>'+pstring(deneqn, index:int.parse(dindex),
+          variable:'z', name:'h')+'</h4>';
+    }
+    js.Proxy context = js.context;
+    js.scoped(() {
+      // This repesents the following:
+      // MathJax.Hub.Queue(["Typeset", MathJax.Hub, targetDiv]));
+      new js.Proxy(context.MathJax.Hub.Queue(js.array(["Typeset",
+                                                       context.MathJax.Hub,
+                                                       targetDiv])));
+    });
+  }
 
   void compute(Event e, var detail, Element target) {
     e.preventDefault();
@@ -169,8 +207,6 @@ class Equations extends PolymerElement {
       dindex = math.secondValueIndex;
     }
 
-    editors[this.id].session.insert(editors[this.id].cursorPosition, test);
-
     Sequence numeqn = sequence(ncoeff.split(",")
         .where((element) => element.trim().isNotEmpty)
           .map((element)=> int.parse(element)));
@@ -179,15 +215,40 @@ class Equations extends PolymerElement {
           .map((element)=> int.parse(element)));
     Sequence numind = numeqn.position(int.parse(nindex));
     Sequence denind = deneqn.position(int.parse(dindex));
+
     var convolution = conv(numeqn, deneqn, numind, denind);
-    numeratordiv.innerHtml = '<p>'+pstring(numeqn, index:int.parse(nindex), variable:'z', name:'x')+'</p>';
-    denominatordiv.innerHtml = '<p>'+pstring(deneqn, index:int.parse(dindex), variable:'z', name:'h')+'</p>';
-    solutiondiv.innerHtml = '<p>'+convolution.format(null, 'z', 'y')+'</p>';
+
+    numeratordiv.innerHtml = '<h4>'+pstring(numeqn, index:int.parse(nindex),
+        variable:'z', name:'x')+'</h4>';
+    denominatordiv.innerHtml = '<h4>'+pstring(deneqn, index:int.parse(dindex),
+        variable:'z', name:'h')+'</h4>';
+    solutiondiv.innerHtml = '<h4>'+convolution.format('latex', 'z', 'y')+'</h4>';
+
+    String results = """
+import 'package:convolab/convolab.dart';
+
+void main() {
+  // X sequence coefficients.
+  Sequence x = sequence([$ncoeff]);
+  // Create the X sequence position vector.
+  Sequence n = x.position($nindex);
+  // H sequence coefficients.
+  Sequence h = sequence([$dcoeff]);
+  // Create the H sequence position vector.
+  Sequence nh = h.position($dindex);
+  // Compute y = x * h
+  var y = conv(x, h, n, nh);
+  print(y.format('latex', 'z', 'y'));
+}
+""";
+
+    editors[this.id].session.replace(new ace.Range.fromPoints(startCursors[this.id],
+        editors[this.id].cursorPosition), results);
 
     js.Proxy context = js.context;
     js.scoped(() {
       // This repesents the following:
-      // MathJax.Hub.Queue(["Typeset", MathJax.Hub, numeratordiv]));
+      // MathJax.Hub.Queue(["Typeset", MathJax.Hub, resultsdiv]));
       new js.Proxy(context.MathJax.Hub.Queue(js.array(["Typeset",
                                                        context.MathJax.Hub,
                                                        resultsdiv])));
