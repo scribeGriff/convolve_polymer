@@ -72,9 +72,21 @@ input[type="text"].narrow {
   margin-top: 40px;
 }
 /* temporarily? fix results box height to match data div*/
-#results-convolution {
+#results-convolution,
+#results-deconvolution,
+#results-sequence,
+#results-fourier,
+#results-filter {
   height: 405px;
   overflow: auto;
+}
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s;
+}
+.fade-in {
+  opacity: 1;
+  transition: opacity 1s;
 }
 /* Editor */
 #editor-convolution,

@@ -55,12 +55,12 @@
 
     <div id="content" class="clearfix">
         <div id="convolution" class="active page clearfix">
-        <div class="row">
-          <div class="container">
-            <h4>$$x(z) = z + 2 + 3z^{-1}$$</h4>
-            <h4>$$h(z) = 2z^{2} + 4z + 3 + 5z^{-1}$$</h4>
-            <h4>$$y(z) = x(z) \ast h(z) = 2z^{3} + 8z^{2} + 17z + 23 + 19z^{-1} + 15z^{-2}$$</h4>
-          </div>
+          <div class="row">
+            <div class="container">
+              <h4>$$x(z) = z + 2 + 3z^{-1}$$</h4>
+              <h4>$$h(z) = 2z^{2} + 4z + 3 + 5z^{-1}$$</h4>
+              <h4>$$y(z) = x(z) \ast h(z) = 2z^{3} + 8z^{2} + 17z + 23 + 19z^{-1} + 15z^{-2}$$</h4>
+            </div>
           </div>
           <div class="spacer"></div>
           <div class="row">
@@ -74,9 +74,9 @@
                 </div>
                 <div class="panel-body"> 
                   <div id="results-convolution">
-                    <div id="numerator-convolution"></div>
-                    <div id="denominator-convolution"></div>
-                    <div id="solution-convolution"></div>
+                    <div id="numerator-convolution" class="fade-out"></div>
+                    <div id="denominator-convolution" class="fade-out"></div>
+                    <div id="solution-convolution" class="fade-out"></div>
                   </div>
                 </div>
               </div>
@@ -101,23 +101,39 @@
           <h2>Deconvolution by Polynomial Division</h2>
           <p>$$h(z) = \frac{N(z)}{D(z)} = z - 1 + 2z^{-1} - 2z^{-2} + \frac{3z^{-2} + 3z^{-3}}{z + 2 + z^{-1}}$$</p>
         </div>
-        <div class="col-lg-4">
-          <h3> Data </h3>
+      </div>
+      <div class="spacer"></div>
+      <div class="row">
+        <div class="col-lg-6">
           <equation-element id="equation-deconvolution"></equation-element>
         </div>
-        <div id="results-deconvolution" class="col-lg-4">
-          <h3> Results </h3>
-          <div id="numerator-deconvolution"></div>
-          <div id="denominator-deconvolution"></div>
-          <div id="solution-deconvolution"></div>
+        <div class="col-lg-6">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Results</h3>
+            </div>
+            <div class="panel-body">
+              <div id="results-deconvolution">
+                <div id="numerator-deconvolution"></div>
+                <div id="denominator-deconvolution"></div>
+                <div id="solution-deconvolution"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">
-          <div class="col-md-8 col-md-offset-1">
-            <h3> Code </h3>
-            <div id="editor-deconvolution"></div>
+        <div class="col-lg-12">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Code</h3>
+            </div>
+            <div class="panel-body">
+              <div id="editor-deconvolution"></div>
+            </div>
           </div>
         </div>
+      </div>
     </div>
     <div id="sequence" class="previous page clearfix">
       <div class="row">

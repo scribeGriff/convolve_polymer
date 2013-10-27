@@ -28,6 +28,7 @@ class EqnElement extends Observable {
 class Equations extends PolymerElement {
   @observable MathItem math = new MathItem();
   String ncoeff, nindex, dcoeff, dindex;
+  bool changed = false;
 
   // The id of each equation element.
   static final List ids = [
@@ -126,6 +127,13 @@ class Equations extends PolymerElement {
   Equations.created() : super.created() {
     //print(this.id);
     //print(this.id.split("-")[1]);
+    math.changes.listen((records) {
+      if (!changed) {
+        changed = !changed;
+        print(changed);
+      }
+    });
+
     editors[this.id]
       ..theme = new ace.Theme("ace/theme/textmate")
       ..session.mode = new ace.Mode("ace/mode/dart")
@@ -142,6 +150,7 @@ class Equations extends PolymerElement {
         querySelector('#${target.attributes["id"]}-${this.id.split("-")[1]}');
     // TODO Need better naming to make this easier to deal with.
     if (target.attributes["id"] == 'numerator') {
+      // if (math.firstValue != ncoeff || math.firstValueIndex != nindex) continue
       if (math.firstValue.isEmpty) {
         ncoeff = eqn_element[this.id].initial.firstValue;
       } else {
@@ -182,6 +191,9 @@ class Equations extends PolymerElement {
                                                        context.MathJax.Hub,
                                                        targetDiv])));
     });
+    targetDiv.classes.remove('fade-out');
+    targetDiv.classes.add('fade-in');
+    changed = !changed;
   }
 
   void compute(Event e, var detail, Element target) {
@@ -256,5 +268,12 @@ void main() {
                                                        context.MathJax.Hub,
                                                        resultsdiv])));
     });
+
+    numeratordiv.classes.remove('fade-out');
+    numeratordiv.classes.add('fade-in');
+    denominatordiv.classes.remove('fade-out');
+    denominatordiv.classes.add('fade-in');
+    solutiondiv.classes.remove('fade-out');
+    solutiondiv.classes.add('fade-in');
   }
 }
