@@ -5,9 +5,10 @@ import 'package:polymer/polymer.dart';
 class Item extends Observable {
   @observable String text;
   @observable String id;
+  @observable String icon;
   @observable bool selected;
 
-  Item(this.text, this.id, this.selected) {
+  Item(this.text, this.id, this.icon, this.selected) {
     onPropertyChange(this, #selected, () =>
         notifyPropertyChange(#arrowClass, null, selected));
   }
@@ -28,11 +29,11 @@ class NavbarElement extends PolymerElement {
   // TODO: Does this list need to be observable?
   final ObservableList<Item> menu =
       toObservable([
-                    new Item('Fourier', 'fourier', false),
-                    new Item('Sequences', 'sequence', false),
-                    new Item('Convolution', 'convolution', true),
-                    new Item('Deconvolution', 'deconvolution', false),
-                    new Item('Filters', 'filter', false)
+                    new Item('Fourier', 'fourier', 'fa fa fa-sort-amount-desc fa-rotate-270', false),
+                    new Item('Sequences', 'sequence', 'fa fa-tasks', false),
+                    new Item('Convolution', 'convolution', 'fa fa-asterisk', true),
+                    new Item('Deconvolution', 'deconvolution', 'fa fa-headphones fa-rotate-90', false),
+                    new Item('Filters', 'filter', 'fa fa-filter', false)
                     ]);
 
   final List classList = [
