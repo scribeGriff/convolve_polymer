@@ -130,20 +130,12 @@
         left: 50%;
         margin-left: -30px;
       }
-      @media screen and (max-width: 1250px) {
-        nav a {
-          font-size: 1.0em;
-        }
+      .menuName {
+        display: inline;
       }
-      @media screen and (max-width: 900px) {
-        nav a {
-          font-size: 0.8em;
-        }
-      @media screen and (max-width: 700px) {
-        nav a {
-          font-size: 0.6em;
-          text-transform: none;
-          letter-spacing: normal;
+      @media screen and (max-width: 1300px) {
+        .menuName {
+          display: none;
         }
       }
     </style>
@@ -152,7 +144,7 @@
         <nav class="st-nav">
           <template repeat="{{item in menu}}" >
             <a id={{item.id}} href="#" class={{item.arrowClass}} on-click="menuHandler">
-              <span>{{item.text}}&nbsp;</span>
+              <span class="menuName">{{item.text}}&nbsp;</span>
               <i class={{item.icon}}></i>
             </a>
           </template>

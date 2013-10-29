@@ -28,7 +28,7 @@ class EqnElement extends Observable {
 class Equations extends PolymerElement {
   @observable MathItem math = new MathItem();
   String ncoeff, nindex, dcoeff, dindex;
-  bool changed = false;
+  bool changed = true;
 
   // The id of each equation element.
   static final List ids = [
@@ -128,10 +128,7 @@ class Equations extends PolymerElement {
     //print(this.id);
     //print(this.id.split("-")[1]);
     math.changes.listen((records) {
-      if (!changed) {
-        changed = !changed;
-        print(changed);
-      }
+      if (!changed) changed = !changed;
     });
 
     editors[this.id]
@@ -149,51 +146,53 @@ class Equations extends PolymerElement {
     DivElement targetDiv =
         querySelector('#${target.attributes["id"]}-${this.id.split("-")[1]}');
     // TODO Need better naming to make this easier to deal with.
-    if (target.attributes["id"] == 'numerator') {
-      // if (math.firstValue != ncoeff || math.firstValueIndex != nindex) continue
-      if (math.firstValue.isEmpty) {
-        ncoeff = eqn_element[this.id].initial.firstValue;
-      } else {
-        ncoeff = math.firstValue;
-      }
-      if (math.firstValueIndex.isEmpty) {
-        nindex = eqn_element[this.id].initial.firstValueIndex;
-      } else {
-        nindex = math.firstValueIndex;
-      }
-      Sequence numeqn = sequence(ncoeff.split(",")
-          .where((element) => element.trim().isNotEmpty)
+    if (changed) {
+      if (target.attributes["id"] == 'numerator') {
+        // if (math.firstValue != ncoeff || math.firstValueIndex != nindex) continue
+        if (math.firstValue.isEmpty) {
+          ncoeff = eqn_element[this.id].initial.firstValue;
+        } else {
+          ncoeff = math.firstValue;
+        }
+        if (math.firstValueIndex.isEmpty) {
+          nindex = eqn_element[this.id].initial.firstValueIndex;
+        } else {
+          nindex = math.firstValueIndex;
+        }
+        Sequence numeqn = sequence(ncoeff.split(",")
+            .where((element) => element.trim().isNotEmpty)
             .map((element)=> int.parse(element)));
-      targetDiv.innerHtml = '<h4>'+pstring(numeqn, index:int.parse(nindex),
-          variable:'z', name:'x')+'</h4>';
-    } else {
-      if (math.secondValue.isEmpty) {
-        dcoeff = eqn_element[this.id].initial.secondValue;
+        targetDiv.innerHtml = '<h4>'+pstring(numeqn, index:int.parse(nindex),
+            variable:'z', name:'x')+'</h4>';
       } else {
-        dcoeff = math.secondValue;
-      }
-      if (math.secondValueIndex.isEmpty) {
-        dindex = eqn_element[this.id].initial.secondValueIndex;
-      } else {
-        dindex = math.secondValueIndex;
-      }
-      Sequence deneqn = sequence(dcoeff.split(",")
-          .where((element) => element.trim().isNotEmpty)
+        if (math.secondValue.isEmpty) {
+          dcoeff = eqn_element[this.id].initial.secondValue;
+        } else {
+          dcoeff = math.secondValue;
+        }
+        if (math.secondValueIndex.isEmpty) {
+          dindex = eqn_element[this.id].initial.secondValueIndex;
+        } else {
+          dindex = math.secondValueIndex;
+        }
+        Sequence deneqn = sequence(dcoeff.split(",")
+            .where((element) => element.trim().isNotEmpty)
             .map((element)=> int.parse(element)));
-      targetDiv.innerHtml = '<h4>'+pstring(deneqn, index:int.parse(dindex),
-          variable:'z', name:'h')+'</h4>';
+        targetDiv.innerHtml = '<h4>'+pstring(deneqn, index:int.parse(dindex),
+            variable:'z', name:'h')+'</h4>';
+      }
+      js.Proxy context = js.context;
+      js.scoped(() {
+        // This repesents the following:
+        // MathJax.Hub.Queue(["Typeset", MathJax.Hub, targetDiv]));
+        new js.Proxy(context.MathJax.Hub.Queue(js.array(["Typeset",
+                                                         context.MathJax.Hub,
+                                                         targetDiv])));
+      });
+      targetDiv.classes.remove('fade-out');
+      targetDiv.classes.add('fade-in');
+      changed = !changed;
     }
-    js.Proxy context = js.context;
-    js.scoped(() {
-      // This repesents the following:
-      // MathJax.Hub.Queue(["Typeset", MathJax.Hub, targetDiv]));
-      new js.Proxy(context.MathJax.Hub.Queue(js.array(["Typeset",
-                                                       context.MathJax.Hub,
-                                                       targetDiv])));
-    });
-    targetDiv.classes.remove('fade-out');
-    targetDiv.classes.add('fade-in');
-    changed = !changed;
   }
 
   void compute(Event e, var detail, Element target) {
