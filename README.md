@@ -8,16 +8,14 @@
 So updating a div whose id is stored in the variable `eqndiv` in JavaScript:
 
 ````javascript
-MathJax.Hub.Queue(["Typeset", MathJax.Hub, eqndiv]));
+MathJax.Hub.Queue(["Typeset", MathJax.Hub, resultsdiv]));
 ````
 
 Translates to the following using js-interop:
 
 ````dart
+import 'package:js/js.dart' as js;
+
 js.Proxy context = js.context;
-js.scoped(() {
-  new js.Proxy(context.MathJax.Hub.Queue(js.array(["Typeset",
-                                                    context.MathJax.Hub,
-                                                    eqndiv])));
-});
+context.MathJax.Hub.Queue(js.array(["Typeset", context.MathJax.Hub, resultsdiv]));
 ````

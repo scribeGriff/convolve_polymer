@@ -30,7 +30,7 @@
             </span>
           </div>
           <span class="help-block">To check your equation, press render.
-            <button on-click="render" id="numerator" type="button" class="btn btn-info btn-xs pull-right">render</button>
+            <button on-click="{{render}}" id="numerator" type="button" class="btn btn-info btn-xs pull-right">render</button>
           </span>
         </div>
 
@@ -56,11 +56,11 @@
             </span>
           </div>
           <span class="help-block">To check your equation, press render.
-            <button on-click="render" id="denominator" type="button" class="btn btn-info btn-xs pull-right">render</button>
+            <button on-click="{{render}}" id="denominator" type="button" class="btn btn-info btn-xs pull-right">render</button>
           </span>
         </div>
         <div class="spacer"></div>
-        <button on-click="compute" class="btn btn-default">Compute &raquo;</button>
+        <button on-click="{{compute}}" class="btn btn-default">Compute &raquo;</button>
     </form>
     </div>
    </div>

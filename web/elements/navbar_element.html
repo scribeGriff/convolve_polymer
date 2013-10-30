@@ -143,7 +143,7 @@
       <div class="st-container">
         <nav class="st-nav">
           <template repeat="{{item in menu}}" >
-            <a id={{item.id}} href="#" class={{item.arrowClass}} on-click="menuHandler">
+            <a id={{item.id}} href="#" class={{item.arrowClass}} on-click="{{menuHandler}}">
               <span class="menuName">{{item.text}}&nbsp;</span>
               <i class={{item.icon}}></i>
             </a>

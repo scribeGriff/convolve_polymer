@@ -181,14 +181,12 @@ class Equations extends PolymerElement {
         targetDiv.innerHtml = '<h4>'+pstring(deneqn, index:int.parse(dindex),
             variable:'z', name:'h')+'</h4>';
       }
+
+      // This repesents the following:
+      // MathJax.Hub.Queue(["Typeset", MathJax.Hub, targetDiv]));
       js.Proxy context = js.context;
-      js.scoped(() {
-        // This repesents the following:
-        // MathJax.Hub.Queue(["Typeset", MathJax.Hub, targetDiv]));
-        new js.Proxy(context.MathJax.Hub.Queue(js.array(["Typeset",
-                                                         context.MathJax.Hub,
-                                                         targetDiv])));
-      });
+      context.MathJax.Hub.Queue(js.array(["Typeset", context.MathJax.Hub, targetDiv]));
+
       targetDiv.classes.remove('fade-out');
       targetDiv.classes.add('fade-in');
       changed = !changed;
@@ -259,14 +257,10 @@ void main() {
     editors[this.id].session.replace(new ace.Range.fromPoints(startCursors[this.id],
         editors[this.id].cursorPosition), results);
 
+    // This repesents the following:
+    // MathJax.Hub.Queue(["Typeset", MathJax.Hub, resultsdiv]));
     js.Proxy context = js.context;
-    js.scoped(() {
-      // This repesents the following:
-      // MathJax.Hub.Queue(["Typeset", MathJax.Hub, resultsdiv]));
-      new js.Proxy(context.MathJax.Hub.Queue(js.array(["Typeset",
-                                                       context.MathJax.Hub,
-                                                       resultsdiv])));
-    });
+    context.MathJax.Hub.Queue(js.array(["Typeset", context.MathJax.Hub, resultsdiv]));
 
     numeratordiv.classes.remove('fade-out');
     numeratordiv.classes.add('fade-in');
