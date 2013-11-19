@@ -19,3 +19,7 @@ import 'package:js/js.dart' as js;
 js.Proxy context = js.context;
 context.MathJax.Hub.Queue(js.array(["Typeset", context.MathJax.Hub, resultsdiv]));
 ````
+
+#### Screenshot ####
+
+![Font Awesome - ness](http://www.scribegriff.com/dartlang/github/convolve/convolve_polymer_fa.jpg)
